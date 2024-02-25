@@ -4,6 +4,7 @@ import PlantMarket_ABI from '@/abis/PlantMarket.json'
 import type { PlantMarket } from '@/abis/types'
 import { enum2Array } from '@/utils'
 import { PlantType } from '@/models/PlantType'
+import { PlantDTO } from '@/models/PlantDTO'
 
 function createContract<T>(
   address: string,
@@ -54,7 +55,7 @@ export class ContractService {
   }
 
   /**
-   * 用户领养记录
+   * 用户曾经领养植物种类次数
    *
    * @memberof ContractService
    */
@@ -73,15 +74,26 @@ export class ContractService {
   }
 
   /**
-   * 官方创建植物
+   * 查询用户当前已领养的植物
    *
-   * @param {PlantType} type
    * @return {*}
    * @memberof ContractService
    */
-  async createPlant(type: PlantType) {
+  async getUserAdoptedPlants() {
     const contract = await this.getPlantMarketContract()
-    const res = await contract.createPlant(type)
+    return contract.getUserAdoptedPlants(this.getSigner.address)
+  }
+
+  /**
+   * 官方创建植物
+   *
+   * @return {*}
+   * @memberof ContractService
+   */
+  async createPlant() {
+    const contract = await this.getPlantMarketContract()
+
+    const res = await contract.createPlant(new PlantDTO('0.0151', '0.045', 14, 16, PlantType.SmallTree, 30, 50))
     return handleTransaction(res)
   }
 
@@ -94,7 +106,7 @@ export class ContractService {
    */
   async adoptPlant(plantId: bigint) {
     const contract = await this.getPlantMarketContract()
-    const res = await contract.adoptPlant(plantId, { value: ethers.parseEther(String(0.05)) })
+    const res = await contract.adoptPlant(plantId, { value: ethers.parseEther(String(0.02)) })
     return handleTransaction(res)
   }
 }

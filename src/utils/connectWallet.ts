@@ -8,7 +8,7 @@ import {
   polygonMumbai,
 } from 'wagmi/chains'
 
-// import { alchemyProvider } from 'wagmi/providers/alchemy'
+import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { publicProvider } from 'wagmi/providers/public'
 
 const localhost = {
@@ -20,14 +20,14 @@ const localhost = {
     ...polygonMumbai.rpcUrls,
     ...{
       localhost: {
-        http: [import.meta.env.VITE_ALCHEMY_ID],
-        webSocket: ['wss://polygon-mumbai.g.alchemy.com/v2/1rxe1gkQ1tGxJ_9jaDDpW-HBSyIBYNKt'],
+        http: [`https://polygon-mumbai.g.alchemy.com/v2/${import.meta.env.VITE_ALCHEMY_ID}`],
+        webSocket: [`wss://polygon-mumbai.g.alchemy.com/v2/${import.meta.env.VITE_ALCHEMY_ID}`],
       },
       default: {
-        http: [import.meta.env.VITE_ALCHEMY_ID],
+        http: [`https://polygon-mumbai.g.alchemy.com/v2/${import.meta.env.VITE_ALCHEMY_ID}`],
       },
       public: {
-        http: [import.meta.env.VITE_ALCHEMY_ID],
+        http: [`https://polygon-mumbai.g.alchemy.com/v2/${import.meta.env.VITE_ALCHEMY_ID}`],
       },
     },
   },
@@ -43,6 +43,9 @@ console.log('%c🚀[localhost]-40:', 'color: #d2448d', localhost)
 const { chains, publicClient } = configureChains(
   chainList,
   [
+    alchemyProvider({
+      apiKey: import.meta.env.VITE_ALCHEMY_ID,
+    }),
     publicProvider(),
   ],
 )
