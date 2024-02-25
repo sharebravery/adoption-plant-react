@@ -33,7 +33,7 @@ const localhost = {
   },
 }
 
-const chainList = [arbitrum]
+const chainList = [polygonMumbai, arbitrum]
 
 console.log('%c🚀[import.meta.env]-40:', 'color: #ca0728', import.meta.env)
 if (import.meta.env.DEV)
