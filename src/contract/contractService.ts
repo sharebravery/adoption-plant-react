@@ -93,7 +93,7 @@ export class ContractService {
   async createPlant() {
     const contract = await this.getPlantMarketContract()
 
-    const res = await contract.createPlant(new PlantDTO('0.0151', '0.045', 14, 16, PlantType.SmallTree, 30, 50))
+    const res = await contract.createPlant(new PlantDTO('0.0151', '0.045', 14, 16, PlantType.MediumTree, 30, 50))
     return handleTransaction(res)
   }
 
