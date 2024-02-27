@@ -121,16 +121,32 @@ export class ContractService {
   }
 
   /**
+   *挂单
+   *
+   * @param {bigint} plantId
+   * @return {*}
+   * @memberof ContractService
+   */
+  async list(plantId: bigint) {
+    const contract = await this.getPlantMarketContract()
+
+    const res = await contract.list(plantId)
+    return handleTransaction(res)
+  }
+
+  /**
    * 结算测试
    *
    * @return {*}
    * @memberof ContractService
    */
-  async autoSplitAndSettle() {
-    const contract = await this.getPlantMarketContract()
+  // async autoSplitAndSettle() {
+  //   console.log('%c🚀[this]-131:', 'color: #b3385c', this)
+  //   const contract = await this.getPlantMarketContract()
+  //   console.log('%c🚀[contract]-131:', 'color: #48220f', contract)
 
-    const res = await contract.autoSplitAndSettle()
-    console.log('%c🚀[autoSplitAndSettle]-117:', 'color: #6f6606', res)
-    return handleTransaction(res)
-  }
+  //   const res = await contract.autoSplitAndSettle()
+  //   console.log('%c🚀[autoSplitAndSettle]-117:', 'color: #6f6606', res)
+  //   return handleTransaction(res)
+  // }
 }

@@ -20,17 +20,12 @@ export default function Home() {
       label: 'My',
       children: <My />,
     },
+    {
+      key: 'Test',
+      label: 'Test',
+      children: <Test />,
+    },
   ]
-
-  if (import.meta.env.DEV) {
-    items.push(
-      {
-        key: 'Test',
-        label: 'Test',
-        children: <Test />,
-      },
-    )
-  }
 
   return (
     <div>

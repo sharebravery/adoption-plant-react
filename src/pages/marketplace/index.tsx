@@ -45,8 +45,6 @@ export default function Marketplace() {
     <div>
       <div className="flex gap-24">
 
-        <Button onClick={contractService?.autoSplitAndSettle}>结算测试</Button>
-
         {plantList.map(item => (
 
           <div key={item.plantId}>
