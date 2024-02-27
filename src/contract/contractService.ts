@@ -5,6 +5,7 @@ import type { PlantMarket } from '@/abis/types'
 import { enum2Array } from '@/utils'
 import { PlantType } from '@/models/PlantType'
 import { PlantDTO } from '@/models/PlantDTO'
+import { AdoptionPriceRange } from '@/models/AdoptionPriceRange'
 
 function createContract<T>(
   address: string,
@@ -81,7 +82,7 @@ export class ContractService {
    */
   async getUserAdoptedPlants() {
     const contract = await this.getPlantMarketContract()
-    return contract.getUserAdoptedPlants(this.getSigner.address)
+    return contract.getUserAdoptedPlants(this.getSigner.address, false)
   }
 
   /**
@@ -89,12 +90,20 @@ export class ContractService {
    *
    * @return {*}
    * @memberof ContractService
+   *
    */
-  async createPlant() {
+  async createPlant(info: PlantDTO, type: any) {
+    info.minEth = ethers.parseEther(String(info.minEth) as any)
+    info.maxEth = ethers.parseEther(String(info.maxEth) as any)
+    const aa = new PlantDTO('0', '0', 0, 0, 1, 0, 0)
+    console.log('%c🚀[aa]-99:', 'color: #f930a8', aa)
+
+    const temp = { ...info, plantType: Number(type) }
+    console.log('%c🚀[temp]-99:', 'color: #310156', temp)
+
     const contract = await this.getPlantMarketContract()
 
-    const res = await contract.createPlant(new PlantDTO('0.0151', '0.045', 14, 16, PlantType.MediumTree, 30, 50))
-    return handleTransaction(res)
+    await contract.createPlant(temp)
   }
 
   /**
@@ -104,9 +113,24 @@ export class ContractService {
    * @return {*}
    * @memberof ContractService
    */
-  async adoptPlant(plantId: bigint) {
+  async adoptPlant(plantId: bigint, fee: string) {
+    console.log('%c🚀[fee]-117:', 'color: #866414', fee)
     const contract = await this.getPlantMarketContract()
-    const res = await contract.adoptPlant(plantId, { value: ethers.parseEther(String(0.02)) })
+    const res = await contract.adoptPlant(plantId, { value: fee })
+    return handleTransaction(res)
+  }
+
+  /**
+   * 结算测试
+   *
+   * @return {*}
+   * @memberof ContractService
+   */
+  async autoSplitAndSettle() {
+    const contract = await this.getPlantMarketContract()
+
+    const res = await contract.autoSplitAndSettle()
+    console.log('%c🚀[autoSplitAndSettle]-117:', 'color: #6f6606', res)
     return handleTransaction(res)
   }
 }

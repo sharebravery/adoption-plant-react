@@ -26,10 +26,10 @@ export default function Marketplace() {
     contractService && fetchData()
   }, [contractService])
 
-  async function adoptPlant(plantId: bigint) {
+  async function adoptPlant(plant: Plant) {
     setAdoptLoading(true)
     try {
-      const res = await contractService?.adoptPlant(plantId)
+      const res = await contractService?.adoptPlant(plant.plantId, plant.minEth)
       console.log('%c🚀[res]-31:', 'color: #148ae5', res)
     }
     catch (error) {
@@ -45,13 +45,13 @@ export default function Marketplace() {
     <div>
       <div className="flex gap-24">
 
-        <Button onClick={() => contractService?.createPlant()}>官方创建植物</Button>
+        <Button onClick={contractService?.autoSplitAndSettle}>结算测试</Button>
 
         {plantList.map(item => (
 
           <div key={item.plantId}>
             <PlantCard plant={item} />
-            <Button loading={adoptLoading} type="primary" onClick={() => adoptPlant(item.plantId)}>领养</Button>
+            <Button loading={adoptLoading} type="primary" onClick={() => adoptPlant(item)}>领养</Button>
           </div>
         ))}
 

@@ -2,6 +2,7 @@ import type { TabsProps } from 'antd'
 import { Tabs } from 'antd'
 import Marketplace from '../marketplace'
 import My from '../my'
+import Test from '../test/Test'
 
 export default function Home() {
   const onChange = (key: string) => {
@@ -20,6 +21,16 @@ export default function Home() {
       children: <My />,
     },
   ]
+
+  if (import.meta.env.DEV) {
+    items.push(
+      {
+        key: 'Test',
+        label: 'Test',
+        children: <Test />,
+      },
+    )
+  }
 
   return (
     <div>
