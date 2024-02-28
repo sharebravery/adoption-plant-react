@@ -19,16 +19,16 @@ interface PlantCardProps {
 const PlantCard: React.FC<PlantCardProps> = ({ plant }) => {
   return (
     <div className="w-full bg-green p6 text-center">
-      <p>
+      {/* <p>
         植物编号：
         {String(plant.plantId)}
-      </p>
+      </p> */}
 
       <div>{PlantType[plant.plantType]}</div>
 
       <div className="my-4 flex flex-col">
-        <PlantInfo label="价值：" value={`${ethers.formatEther(plant.minEth)} ETH - ${ethers.formatEther(plant.maxEth)}`} />
-        <PlantInfo label="最高领养价格：" value={`${ethers.formatEther(plant.maxEth)} ETH`} />
+        <PlantInfo label="价值：" value={`${plant.minEth} ETH - ${plant.maxEth}`} />
+        {/* <PlantInfo label="最高领养价格：" value={`${plant.maxEth} ETH`} /> */}
         <PlantInfo label="领养时间：" value={`${plant.startTime}:00 - ${plant.endTime}:00`} />
         <PlantInfo label="收益天数：" value={`${plant.profitDays}`} />
         <PlantInfo label="收益率：" value={`${plant.profitRate}%`} />

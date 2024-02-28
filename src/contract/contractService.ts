@@ -5,7 +5,6 @@ import type { PlantMarket } from '@/abis/types'
 import { enum2Array } from '@/utils'
 import { PlantType } from '@/models/PlantType'
 import { PlantDTO } from '@/models/PlantDTO'
-import { AdoptionPriceRange } from '@/models/AdoptionPriceRange'
 
 function createContract<T>(
   address: string,
