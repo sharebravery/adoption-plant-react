@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Button, message } from 'antd'
-import PlantCard from '../components/PlantCard'
+import MyPlantCard from './components/PlantCard'
 import useBrowserContract from '@/hooks/useBrowserContract'
 import type { Plant } from '@/models/Plant'
 import { plantArray2PlantMap } from '@/utils/plantArray2PlantMap'
@@ -14,8 +14,14 @@ export default function My() {
 
   async function fetchData() {
     const res = await contractService?.getUserAdoptedPlants()
-    if (res)
-      setPlantList(() => plantArray2PlantMap(res))
+    if (res) {
+      const data = plantArray2PlantMap(res).map(e => ({
+        ...e,
+        minEth: String(Number(e.minEth) + Number(e.minEth) * e.profitRate / 100),
+      }))
+      console.log('%c🚀[data]-20:', 'color: #a45e4b', data)
+      setPlantList(() => data)
+    }
 
     console.log('%c🚀[getUserAdoptedPlants]-9:', 'color: #5c6a37', res)
   }
@@ -43,7 +49,7 @@ export default function My() {
     <div className="flex gap-24">
       {plantList.map(item => (
         <div key={item.plantId}>
-          <PlantCard plant={item} />
+          <MyPlantCard plant={item} />
           <Button loading={listLoading} onClick={() => onList(item.plantId)}>挂单</Button>
         </div>
       ))}

@@ -82,7 +82,7 @@ export class ContractService {
    */
   async getUserAdoptedPlants() {
     const contract = await this.getPlantMarketContract()
-    return contract.getUserAdoptedPlants(this.getSigner.address, false)
+    return contract.getUserAdoptedPlants(this.getSigner.address, true)
   }
 
   /**

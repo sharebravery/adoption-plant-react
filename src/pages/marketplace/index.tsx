@@ -1,6 +1,6 @@
 import { Button, message } from 'antd'
 import { useEffect, useState } from 'react'
-import PlantCard from '../components/PlantCard'
+import PlantCard from './components/PlantCard'
 import type { MarketPlantInfo } from '@/models/MarketPlantInfo'
 import useBrowserContract from '@/hooks/useBrowserContract'
 import type { Plant } from '@/models/Plant'

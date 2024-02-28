@@ -11,7 +11,7 @@ export function plantArray2PlantMap(data: PlantMarket.PlantStructOutput[]): Plan
     endTime: Number(e[5]),
     adoptedTimestamp: Number(e[6]),
     profitDays: Number(e[7]),
-    profitRate: Number(e[8]),
+    profitRate: Number(e[8]) / 100,
     address: String(e[9]),
     isAdopted: e[10],
   })).reverse()
