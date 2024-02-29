@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Button, message } from 'antd'
+import { ethers } from 'ethers'
 import MyPlantCard from './components/PlantCard'
 import useBrowserContract from '@/hooks/useBrowserContract'
 import type { Plant } from '@/models/Plant'
@@ -12,11 +13,14 @@ export default function My() {
 
   const [listLoading, setListLoading] = useState(false)
 
+  const [treeTokens, setTreeTokens] = useState('0')
+
   useEffect(() => {
     async function fetchData() {
       if (!contractService)
         return
       const balance = await contractService.getUserBalance()
+      setTreeTokens(ethers.formatEther(balance))
       console.log('%c🚀[balance]-20:', 'color: #675d94', balance)
     }
 
@@ -58,6 +62,12 @@ export default function My() {
 
   return (
     <div className="flex gap-24">
+
+      <p>
+        TREE:
+        {treeTokens}
+      </p>
+
       <Button onClick={() => contractService?.approveMarket()}>approveMarket</Button>
 
       {plantList.map(item => (

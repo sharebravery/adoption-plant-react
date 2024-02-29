@@ -134,17 +134,29 @@ export class ContractService {
   /**
    * 将代币授权给市场合约管理
    *
-   * @return {*}
+   * @return {*}  {Promise<boolean>}
    * @memberof ContractService
    */
-  async approveMarket() {
+  async approveMarket(): Promise<boolean> {
     const marketContract = await this.getPlantMarketContract()
 
     const ERC20Contract = await this.getPlantERC20Contract()
 
     const a = await marketContract.getAddress()
-    const res = await ERC20Contract.approve(a, BigInt(1000000000) * BigInt(10 ** 18))
-    return handleTransaction(res)
+
+    const allowance = await ERC20Contract.allowance(this.getSigner.address, a)
+
+    try {
+      if (allowance <= 0n) {
+        const res = await ERC20Contract.approve(a, BigInt(1000000000) * BigInt(10 ** 18))
+        await handleTransaction(res)
+      }
+      return true
+    }
+    catch (error) {
+      console.log('%c🚀[error]-152:', 'color: #f7182e', error)
+      return false
+    }
   }
 
   /**
@@ -156,9 +168,17 @@ export class ContractService {
    */
   async adoptPlant(plantId: bigint, fee: string) {
     console.log('%c🚀[fee]-117:', 'color: #866414', fee)
-    const contract = await this.getPlantMarketContract()
-    const res = await contract.adoptPlant(plantId, { value: fee })
-    return handleTransaction(res)
+
+    try {
+      await this.approveMarket()
+      const contract = await this.getPlantMarketContract()
+      const res = await contract.adoptPlant(plantId, { value: fee })
+      return handleTransaction(res)
+    }
+    catch (error) {
+      console.log('%c🚀[error]-175:', 'color: #830b4a', error)
+      throw new Error('error')
+    }
   }
 
   /**
