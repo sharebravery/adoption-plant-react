@@ -28,7 +28,7 @@ const MyPlantCard: React.FC<PlantCardProps> = ({ plant }) => {
       <div>{PlantType[plant.plantType]}</div>
 
       <div className="my-4 flex flex-col">
-        <PlantInfo label="价值：" value={`${ethers.formatEther(plant.minEth)} ETH - ${ethers.formatEther(plant.maxEth)}`} />
+        <PlantInfo label="价值：" value={`${ethers.formatEther(plant.minEth)} ETH`} />
         <PlantInfo label="领养时间：" value={`${dayjs.unix(plant.adoptedTimestamp).format('YYYY MM-DD HH:mm:ss')}`} />
         <PlantInfo label="收益天数：" value={`${plant.profitDays}`} />
         <PlantInfo label="收益率：" value={`${plant.profitRate}%`} />
