@@ -8,6 +8,7 @@ export default function Test() {
 
   return (
     <div>
+      <Button className="bg-yellow c-red" type="dashed" onClick={contractService?.withdrawBalance}>提取合约金额</Button>
       {Object.entries(priceRanges).map(([plantType, priceRange]) => (
         <div key={plantType} className="flex gap-24">
           <h3>

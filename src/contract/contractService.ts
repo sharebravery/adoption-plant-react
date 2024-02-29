@@ -148,4 +148,19 @@ export class ContractService {
   //   console.log('%c🚀[autoSplitAndSettle]-117:', 'color: #6f6606', res)
   //   return handleTransaction(res)
   // }
+
+  /**
+   * 提取合约余额
+   *
+   * @return {*}
+   * @memberof ContractService
+   */
+  async withdrawBalance() {
+    const contract = await this.getPlantMarketContract()
+
+    const balance = await this.getSigner.provider.getBalance(import.meta.env.VITE_PLANT_MARKET_CONTRACT)
+
+    const res = await contract.withdrawBalance(this.getSigner.address, balance)
+    return handleTransaction(res)
+  }
 }

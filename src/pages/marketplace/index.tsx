@@ -55,11 +55,13 @@ export default function Marketplace() {
 
       const ids = plantRecord[plantType].map(e => Number(e.plantId))
 
-      const randomId = getRandomId(ids)
-      if (!randomId) {
+      if (ids.length <= 0) {
         message.error('没有植物可以领养')
         return
       }
+
+      const randomId = getRandomId(ids)
+
       console.log('%c🚀[randomId]-55:', 'color: #be5076', randomId)
       const plant = plantRecord[plantType].find(e => Number(e.plantId) === randomId)!
 
