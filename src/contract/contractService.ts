@@ -1,7 +1,8 @@
 import { Contract, ethers } from 'ethers'
 import { handleTransaction } from './handleTransaction'
 import PlantMarket_ABI from '@/abis/PlantMarket.json'
-import type { PlantMarket } from '@/abis/types'
+import PlantERC20_ABI from '@/abis/PlantERC20.json'
+import type { PlantERC20, PlantMarket } from '@/abis/types'
 import { enum2Array } from '@/utils'
 import { PlantType } from '@/models/PlantType'
 import { PlantDTO } from '@/models/PlantDTO'
@@ -31,6 +32,19 @@ export class ContractService {
 
   private _plantMarketContract: PlantMarket | undefined = undefined
 
+  private _plantERC20Contract: PlantERC20 | undefined = undefined
+
+  getPlantERC20Contract() {
+    if (this._plantERC20Contract)
+      return this._plantERC20Contract
+
+    return this._plantERC20Contract = createContract<PlantERC20>(
+      import.meta.env.VITE_PLANT_ERC20_CONTRACT,
+      PlantERC20_ABI.abi,
+      this.getSigner,
+    )
+  }
+
   getPlantMarketContract() {
     if (this._plantMarketContract)
       return this._plantMarketContract
@@ -40,6 +54,18 @@ export class ContractService {
       PlantMarket_ABI.abi,
       this.getSigner,
     )
+  }
+
+  /**
+   * 查询用户拥有的TREE代币
+   *
+   * @return {*}
+   * @memberof ContractService
+   */
+  async getUserBalance() {
+    const contract = await this.getPlantERC20Contract()
+
+    return contract.balanceOf(this.getSigner.address)
   }
 
   /**
@@ -103,6 +129,22 @@ export class ContractService {
     const contract = await this.getPlantMarketContract()
 
     await contract.createPlant(temp)
+  }
+
+  /**
+   * 将代币授权给市场合约管理
+   *
+   * @return {*}
+   * @memberof ContractService
+   */
+  async approveMarket() {
+    const marketContract = await this.getPlantMarketContract()
+
+    const ERC20Contract = await this.getPlantERC20Contract()
+
+    const a = await marketContract.getAddress()
+    const res = await ERC20Contract.approve(a, BigInt(1000000000) * BigInt(10 ** 18))
+    return handleTransaction(res)
   }
 
   /**

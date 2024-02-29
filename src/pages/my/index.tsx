@@ -12,6 +12,17 @@ export default function My() {
 
   const [listLoading, setListLoading] = useState(false)
 
+  useEffect(() => {
+    async function fetchData() {
+      if (!contractService)
+        return
+      const balance = await contractService.getUserBalance()
+      console.log('%c🚀[balance]-20:', 'color: #675d94', balance)
+    }
+
+    fetchData()
+  }, [contractService])
+
   async function fetchData() {
     const res = await contractService?.getUserAdoptedPlants()
     if (res) {
@@ -47,6 +58,8 @@ export default function My() {
 
   return (
     <div className="flex gap-24">
+      <Button onClick={() => contractService?.approveMarket()}>approveMarket</Button>
+
       {plantList.map(item => (
         <div key={item.plantId}>
           <MyPlantCard plant={item} />
