@@ -145,10 +145,11 @@ export class ContractService {
     const a = await marketContract.getAddress()
 
     const allowance = await ERC20Contract.allowance(this.getSigner.address, a)
+    console.log('%c🚀[allowance]-148:', 'color: #2b6903', ethers.parseEther(String(allowance)))
 
     try {
       if (allowance <= 0n) {
-        const res = await ERC20Contract.approve(a, BigInt(1000000000) * BigInt(10 ** 18))
+        const res = await ERC20Contract.approve(a, ethers.parseEther(BigInt(10 ** 9).toString()))
         await handleTransaction(res)
       }
       return true
@@ -170,9 +171,14 @@ export class ContractService {
     console.log('%c🚀[fee]-117:', 'color: #866414', fee)
 
     try {
-      await this.approveMarket()
+      const s = await this.approveMarket()
+      console.log('%c🚀[s]-175:', 'color: #06342f', s)
+      if (s === false)
+        throw new Error('Approve Error')
+
       const contract = await this.getPlantMarketContract()
       const res = await contract.adoptPlant(plantId, { value: fee })
+      console.log('%c🚀[666res]-176:', 'color: #2d495d', res)
       return handleTransaction(res)
     }
     catch (error) {
@@ -192,37 +198,6 @@ export class ContractService {
     const contract = await this.getPlantMarketContract()
 
     const res = await contract.list(plantId)
-    return handleTransaction(res)
-  }
-
-  /**
-   * 结算测试
-   *
-   * @return {*}
-   * @memberof ContractService
-   */
-  // async autoSplitAndSettle() {
-  //   console.log('%c🚀[this]-131:', 'color: #b3385c', this)
-  //   const contract = await this.getPlantMarketContract()
-  //   console.log('%c🚀[contract]-131:', 'color: #48220f', contract)
-
-  //   const res = await contract.autoSplitAndSettle()
-  //   console.log('%c🚀[autoSplitAndSettle]-117:', 'color: #6f6606', res)
-  //   return handleTransaction(res)
-  // }
-
-  /**
-   * 提取合约余额
-   *
-   * @return {*}
-   * @memberof ContractService
-   */
-  async withdrawBalance() {
-    const contract = await this.getPlantMarketContract()
-
-    const balance = await this.getSigner.provider.getBalance(import.meta.env.VITE_PLANT_MARKET_CONTRACT)
-
-    const res = await contract.withdrawBalance(this.getSigner.address, balance)
     return handleTransaction(res)
   }
 }
