@@ -6,6 +6,7 @@ import type { PlantERC20, PlantMarket } from '@/abis/types'
 import { enum2Array } from '@/utils'
 import { PlantType } from '@/models/PlantType'
 import { PlantDTO } from '@/models/PlantDTO'
+import type { AdoptionPriceRange } from '@/models/AdoptionPriceRange'
 
 function createContract<T>(
   address: string,
@@ -117,18 +118,18 @@ export class ContractService {
    * @memberof ContractService
    *
    */
-  async createPlant(info: PlantDTO, type: any) {
-    info.minEth = ethers.parseEther(String(info.minEth) as any)
-    info.maxEth = ethers.parseEther(String(info.maxEth) as any)
-    const aa = new PlantDTO('0', '0', 0, 0, 1, 0, 0)
-    console.log('%c🚀[aa]-99:', 'color: #f930a8', aa)
+  async createPlant(info: AdoptionPriceRange, type: any) {
+    // info.minEth = ethers.parseEther(String(info.minEth) as any)
+    // info.maxEth = ethers.parseEther(String(info.maxEth) as any)
+    const data = new PlantDTO(type, ethers.parseEther(String(info.minEth)), ethers.parseEther(String(info.maxEth)))
+    // // console.log('%c🚀[aa]-99:', 'color: #f930a8', aa)
 
-    const temp = { ...info, plantType: Number(type) }
-    console.log('%c🚀[temp]-99:', 'color: #310156', temp)
+    // const temp = { ...info, plantType: Number(type) }
+    // console.log('%c🚀[temp]-99:', 'color: #310156', temp)
 
     const contract = await this.getPlantMarketContract()
 
-    await contract.createPlant(temp)
+    await contract.createPlant(data, this.getSigner.address)
   }
 
   /**
@@ -171,10 +172,10 @@ export class ContractService {
     console.log('%c🚀[fee]-117:', 'color: #866414', fee)
 
     try {
-      const s = await this.approveMarket()
-      console.log('%c🚀[s]-175:', 'color: #06342f', s)
-      if (s === false)
-        throw new Error('Approve Error')
+      // const s = await this.approveMarket()
+      // console.log('%c🚀[s]-175:', 'color: #06342f', s)
+      // if (s === false)
+      //   throw new Error('Approve Error')
 
       const contract = await this.getPlantMarketContract()
       const res = await contract.adoptPlant(plantId, { value: fee })
