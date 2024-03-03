@@ -168,7 +168,7 @@ export class ContractService {
    * @return {*}
    * @memberof ContractService
    */
-  async adoptPlant(plantId: bigint, fee: string) {
+  async adoptPlant(plantId: bigint, fee: bigint) {
     console.log('%c🚀[fee]-117:', 'color: #866414', fee)
 
     try {
@@ -196,9 +196,11 @@ export class ContractService {
    * @memberof ContractService
    */
   async list(plantId: bigint) {
+    console.log('%c🚀[plantId]-199:', 'color: #0011f7', plantId)
     const contract = await this.getPlantMarketContract()
 
     const res = await contract.list(plantId)
+    console.log('%c🚀[res]-203:', 'color: #2c8f08', res)
     return handleTransaction(res)
   }
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Button, message } from 'antd'
 import { ethers } from 'ethers'
+import { priceRanges } from '../home/priceRanges'
 import MyPlantCard from './components/PlantCard'
 import useBrowserContract from '@/hooks/useBrowserContract'
 import type { Plant } from '@/models/Plant'
@@ -32,7 +33,7 @@ export default function My() {
     if (res) {
       const data = plantArray2PlantMap(res).map(e => ({
         ...e,
-        minEth: String(Number(e.minEth) + Number(e.minEth) * e.profitRate / 100),
+        minEth: String(Number(e.valueEth) + Number(e.valueEth) * priceRanges[e.plantType].profitRate / 100),
       }))
       console.log('%c🚀[data]-20:', 'color: #a45e4b', data)
       setPlantList(() => data)
@@ -67,8 +68,7 @@ export default function My() {
         TREE:
         {treeTokens}
       </p>
-
-      <Button onClick={() => contractService?.approveMarket()}>approveMarket</Button>
+      <p className="c-blue">{import.meta.env.VITE_PLANT_ERC20_CONTRACT}</p>
 
       {plantList.map(item => (
         <div key={item.plantId}>

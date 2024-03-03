@@ -2,6 +2,7 @@ import React from 'react'
 import { ethers } from 'ethers'
 import { PlantType } from '@/models/PlantType'
 import type { Plant } from '@/models/Plant'
+import { priceRanges } from '@/pages/home/priceRanges'
 
 const PlantInfo: React.FC<PlantInfoProps> = ({ label, value }) => {
   return (
@@ -27,11 +28,12 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant }) => {
       <div>{PlantType[plant.plantType]}</div>
 
       <div className="my-4 flex flex-col">
-        <PlantInfo label="价值：" value={`${plant.minEth} ETH - ${plant.maxEth}`} />
-        {/* <PlantInfo label="最高领养价格：" value={`${plant.maxEth} ETH`} /> */}
-        <PlantInfo label="领养时间：" value={`${plant.startTime}:00 - ${plant.endTime}:00`} />
-        <PlantInfo label="收益天数：" value={`${plant.profitDays}`} />
-        <PlantInfo label="收益率：" value={`${plant.profitRate}%`} />
+        <PlantInfo label="价值：" value={`${priceRanges[plant.plantType].minEth} ETH - ${priceRanges[plant.plantType].maxEth}`} />
+        <PlantInfo label="领养时间：" value={`${priceRanges[plant.plantType].startTime}:00 - ${priceRanges[plant.plantType].endTime}:00`} />
+        <PlantInfo label="收益天数：" value={`${priceRanges[plant.plantType].profitDays}`} />
+        <PlantInfo label="收益率：" value={`${priceRanges[plant.plantType].profitRate}%`} />
+        <PlantInfo label="可挖TREE：" value={`${[priceRanges[plant.plantType].rewardAmounts]}`} />
+        <PlantInfo label="Blast空投：" value={`${[priceRanges[plant.plantType].blast / 100]}%`} />
       </div>
     </div>
   )

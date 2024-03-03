@@ -5,4 +5,6 @@ export interface AdoptionPriceRange {
   endTime: number // 结束时间（单位：小时）
   profitDays: number // 收益天数
   profitRate: number // 收益率（单位：百分比）
+  rewardAmounts: number // 挖矿收益
+  blast: number
 }

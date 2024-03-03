@@ -11,8 +11,8 @@ export function getLanguageLib() {
   }
 
   return {
-    // locale: lanMap[browserLanguage] ?? lanMap['en-US'],
-    locale: lanMap['en-US'],
+    locale: lanMap[browserLanguage] ?? lanMap['en-US'],
+    // locale: lanMap['en-US'],
     browserLanguage,
   }
 }

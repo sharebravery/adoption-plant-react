@@ -29,6 +29,7 @@ export default function Marketplace() {
 
   async function fetchData() {
     const res = await contractService?.getMarketListings()
+    console.log('%c🚀[res]-32:', 'color: #295ed1', res)
 
     if (res) {
       const data = plantArray2PlantMap(res)
@@ -65,7 +66,7 @@ export default function Marketplace() {
       console.log('%c🚀[randomId]-55:', 'color: #be5076', randomId)
       const plant = plantRecord[plantType].find(e => Number(e.plantId) === randomId)!
 
-      const res = await contractService?.adoptPlant(plant.plantId, plant.minEth)
+      const res = await contractService?.adoptPlant(plant.plantId, plant.valueEth)
       console.log('%c🚀[res]-31:', 'color: #148ae5', res)
 
       if (res?.status === 1) {
