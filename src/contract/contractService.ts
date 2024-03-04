@@ -112,6 +112,20 @@ export class ContractService {
   }
 
   /**
+   * 预约
+   *
+   * @param {PlantType} type
+   * @return {*}
+   * @memberof ContractService
+   */
+  async scheduleAdoption(type: PlantType) {
+    const contract = await this.getPlantMarketContract()
+
+    const res = await contract.scheduleAdoption(type)
+    return handleTransaction(res)
+  }
+
+  /**
    * 官方创建植物
    *
    * @return {*}

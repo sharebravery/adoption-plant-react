@@ -27,6 +27,8 @@ export default function Marketplace() {
 
   const [adoptLoading, setAdoptLoading] = useState(false)
 
+  const [scheduleLoading, setScheduleLoading] = useState(false)
+
   async function fetchData() {
     const res = await contractService?.getMarketListings()
     console.log('%c🚀[res]-32:', 'color: #295ed1', res)
@@ -87,6 +89,19 @@ export default function Marketplace() {
     }
   }
 
+  async function scheduleAdoption(type: PlantType) {
+    setScheduleLoading(true)
+    try {
+      await contractService?.scheduleAdoption(type)
+    }
+    catch (error) {
+      console.log('%c🚀[error]-94:', 'color: #1c1ab9', error)
+    }
+    finally {
+      setScheduleLoading(false)
+    }
+  }
+
   return (
     <div>
       <div className="flex gap-24">
@@ -96,6 +111,7 @@ export default function Marketplace() {
           <div key={plantType}>
             <PlantCard plant={({ ...new Plant(), ...priceRange, profitRate: priceRange.profitRate / 100, plantType: Number(plantType) }) as any} />
 
+            <Button loading={scheduleLoading} onClick={() => scheduleAdoption(Number(plantType))}>预约</Button>
             {
                 plantRecord
                 && <Button disabled={plantRecord[plantType] ? plantRecord[plantType].length <= 0 : true} loading={adoptLoading} type="primary" onClick={() => adoptPlant(Number(plantType))}>领养</Button>
@@ -104,14 +120,6 @@ export default function Marketplace() {
           </div>
         ))
      }
-
-        {/* {plantList.map(item => (
-
-          <div key={item.plantId}>
-            <PlantCard plant={item} />
-            <Button loading={adoptLoading} type="primary" onClick={() => adoptPlant(item)}>领养</Button>
-          </div>
-        ))} */}
 
       </div>
     </div>

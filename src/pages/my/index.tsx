@@ -6,6 +6,7 @@ import MyPlantCard from './components/PlantCard'
 import useBrowserContract from '@/hooks/useBrowserContract'
 import type { Plant } from '@/models/Plant'
 import { plantArray2PlantMap } from '@/utils/plantArray2PlantMap'
+import { addTokenToMetaMask } from '@/utils/addTokenToMetaMask'
 
 export default function My() {
   const { contractService } = useBrowserContract()
@@ -69,6 +70,7 @@ export default function My() {
         {treeTokens}
       </p>
       <p className="c-blue">{import.meta.env.VITE_PLANT_ERC20_CONTRACT}</p>
+      <Button onClick={() => addTokenToMetaMask(import.meta.env.VITE_PLANT_ERC20_CONTRACT, 'TREE', 18)}>添加到钱包</Button>
 
       {plantList.map(item => (
         <div key={item.plantId}>
