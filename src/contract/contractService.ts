@@ -1,8 +1,8 @@
 import { Contract, ethers } from 'ethers'
 import { handleTransaction } from './handleTransaction'
 import PlantMarket_ABI from '@/abis/PlantMarket.json'
-import PlantERC20_ABI from '@/abis/PlantERC20.json'
-import type { PlantERC20, PlantMarket } from '@/abis/types'
+import PlantERC20_ABI from '@/abis/AuthorizedERC20.json'
+import type { AuthorizedERC20, PlantMarket } from '@/abis/types'
 import { enum2Array } from '@/utils'
 import { PlantType } from '@/models/PlantType'
 import { PlantDTO } from '@/models/PlantDTO'
@@ -33,14 +33,14 @@ export class ContractService {
 
   private _plantMarketContract: PlantMarket | undefined = undefined
 
-  private _plantERC20Contract: PlantERC20 | undefined = undefined
+  private _plantERC20Contract: AuthorizedERC20 | undefined = undefined
 
   getPlantERC20Contract() {
     if (this._plantERC20Contract)
       return this._plantERC20Contract
 
-    return this._plantERC20Contract = createContract<PlantERC20>(
-      import.meta.env.VITE_PLANT_ERC20_CONTRACT,
+    return this._plantERC20Contract = createContract<AuthorizedERC20>(
+      import.meta.env.VITE_AUTHORIZED_ERC20_CONTRACT,
       PlantERC20_ABI.abi,
       this.getSigner,
     )
@@ -186,10 +186,10 @@ export class ContractService {
     console.log('%c🚀[fee]-117:', 'color: #866414', fee)
 
     try {
-      // const s = await this.approveMarket()
-      // console.log('%c🚀[s]-175:', 'color: #06342f', s)
-      // if (s === false)
-      //   throw new Error('Approve Error')
+      const s = await this.approveMarket()
+      console.log('%c🚀[s]-175:', 'color: #06342f', s)
+      if (s === false)
+        throw new Error('Approve Error')
 
       const contract = await this.getPlantMarketContract()
       const res = await contract.adoptPlant(plantId, { value: fee })

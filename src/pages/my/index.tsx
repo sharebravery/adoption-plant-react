@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
 import { Button, message } from 'antd'
 import { ethers } from 'ethers'
+import dayjs from 'dayjs'
 import { priceRanges } from '../home/priceRanges'
 import MyPlantCard from './components/PlantCard'
 import useBrowserContract from '@/hooks/useBrowserContract'
 import type { Plant } from '@/models/Plant'
 import { plantArray2PlantMap } from '@/utils/plantArray2PlantMap'
 import { addTokenToMetaMask } from '@/utils/addTokenToMetaMask'
+import { daysToTimestamp } from '@/utils/daysToTimestamp'
 
 export default function My() {
   const { contractService } = useBrowserContract()
@@ -34,7 +36,7 @@ export default function My() {
     if (res) {
       const data = plantArray2PlantMap(res).map(e => ({
         ...e,
-        minEth: String(Number(e.valueEth) + Number(e.valueEth) * priceRanges[e.plantType].profitRate / 100),
+        valueEth: BigInt(BigInt(e.valueEth) + BigInt(e.valueEth) * BigInt(priceRanges[e.plantType].profitRate) / 10000n),
       }))
       console.log('%c🚀[data]-20:', 'color: #a45e4b', data)
       setPlantList(() => data)
@@ -69,13 +71,13 @@ export default function My() {
         TREE:
         {treeTokens}
       </p>
-      <p className="c-blue">{import.meta.env.VITE_PLANT_ERC20_CONTRACT}</p>
-      <Button onClick={() => addTokenToMetaMask(import.meta.env.VITE_PLANT_ERC20_CONTRACT, 'TREE', 18)}>添加到钱包</Button>
+      <p className="c-blue">{import.meta.env.VITE_AUTHORIZED_ERC20_CONTRACT}</p>
+      <Button onClick={() => addTokenToMetaMask(import.meta.env.VITE_AUTHORIZED_ERC20_CONTRACT, 'TREE', 18)}>添加到钱包</Button>
 
       {plantList.map(item => (
         <div key={item.plantId}>
           <MyPlantCard plant={item} />
-          <Button loading={listLoading} onClick={() => onList(item.plantId)}>挂单</Button>
+          <Button disabled={item.adoptedTimestamp + priceRanges[item.plantType].profitDays * 24 * 60 * 60 < dayjs().unix()} loading={listLoading} onClick={() => onList(item.plantId)}>挂单</Button>
         </div>
       ))}
 

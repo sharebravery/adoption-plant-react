@@ -31,7 +31,7 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant }) => {
         <PlantInfo label="价值：" value={`${priceRanges[plant.plantType].minEth} ETH - ${priceRanges[plant.plantType].maxEth}`} />
         <PlantInfo label="领养时间：" value={`${priceRanges[plant.plantType].startTime}:00 - ${priceRanges[plant.plantType].endTime}:00`} />
         <PlantInfo label="收益天数：" value={`${priceRanges[plant.plantType].profitDays}`} />
-        <PlantInfo label="收益率：" value={`${priceRanges[plant.plantType].profitRate}%`} />
+        <PlantInfo label="收益率：" value={`${priceRanges[plant.plantType].profitRate / 100}%`} />
         <PlantInfo label="可挖TREE：" value={`${[priceRanges[plant.plantType].rewardAmounts]}`} />
         <PlantInfo label="Blast空投：" value={`${[priceRanges[plant.plantType].blast / 100]}%`} />
       </div>

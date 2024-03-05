@@ -20,14 +20,14 @@ const localhost = {
     ...polygonMumbai.rpcUrls,
     ...{
       localhost: {
-        http: [`https://polygon-mumbai.g.alchemy.com/v2/${import.meta.env.VITE_ALCHEMY_ID}`],
+        http: [import.meta.env.VITE_JSON_RPC],
         webSocket: [`wss://polygon-mumbai.g.alchemy.com/v2/${import.meta.env.VITE_ALCHEMY_ID}`],
       },
       default: {
-        http: [`https://polygon-mumbai.g.alchemy.com/v2/${import.meta.env.VITE_ALCHEMY_ID}`],
+        http: [import.meta.env.VITE_JSON_RPC],
       },
       public: {
-        http: [`https://polygon-mumbai.g.alchemy.com/v2/${import.meta.env.VITE_ALCHEMY_ID}`],
+        http: [import.meta.env.VITE_JSON_RPC],
       },
     },
   },
