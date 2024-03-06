@@ -8,7 +8,6 @@ import useBrowserContract from '@/hooks/useBrowserContract'
 import type { Plant } from '@/models/Plant'
 import { plantArray2PlantMap } from '@/utils/plantArray2PlantMap'
 import { addTokenToMetaMask } from '@/utils/addTokenToMetaMask'
-import { daysToTimestamp } from '@/utils/daysToTimestamp'
 
 export default function My() {
   const { contractService } = useBrowserContract()
@@ -50,10 +49,15 @@ export default function My() {
     contractService && fetchData()
   }, [contractService])
 
-  async function onList(id: bigint) {
+  async function onList(plant: Plant) {
     setListLoading(true)
     try {
-      await contractService?.list(id)
+      if (dayjs().unix() < plant.adoptedTimestamp + priceRanges[plant.plantType].profitDays * 60) {
+        message.warning('未到合约期限')
+        return
+      }
+
+      await contractService?.list(plant.plantId)
     }
     catch (error) {
       console.log('%c🚀[error]-30:', 'color: #448f18', error)
@@ -77,7 +81,12 @@ export default function My() {
       {plantList.map(item => (
         <div key={item.plantId}>
           <MyPlantCard plant={item} />
-          <Button disabled={item.adoptedTimestamp + priceRanges[item.plantType].profitDays * 24 * 60 * 60 < dayjs().unix()} loading={listLoading} onClick={() => onList(item.plantId)}>挂单</Button>
+          { dayjs.unix(dayjs().unix()).format('YYYY-MM-DD HH:mm:ss')}
+          ___
+          {
+            dayjs.unix(item.adoptedTimestamp + priceRanges[item.plantType].profitDays * 60).format('YYYY-MM-DD HH:mm:ss')
+          }
+          <Button loading={listLoading} onClick={() => onList(item)}>挂单</Button>
         </div>
       ))}
 

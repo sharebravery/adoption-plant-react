@@ -1,5 +1,4 @@
 import React from 'react'
-import { ethers } from 'ethers'
 import { PlantType } from '@/models/PlantType'
 import type { Plant } from '@/models/Plant'
 import { priceRanges } from '@/pages/home/priceRanges'

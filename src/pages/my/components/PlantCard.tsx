@@ -32,7 +32,7 @@ const MyPlantCard: React.FC<PlantCardProps> = ({ plant }) => {
         <PlantInfo label="价值：" value={`${ethers.formatEther(plant.valueEth)} ETH`} />
         <PlantInfo label="领养时间：" value={`${dayjs.unix(plant.adoptedTimestamp).format('YYYY MM-DD HH:mm:ss')}`} />
         <PlantInfo label="收益天数：" value={`${priceRanges[plant.plantType].profitDays}`} />
-        <PlantInfo label="收益率：" value={`${priceRanges[plant.plantType].profitRate}%`} />
+        <PlantInfo label="收益率：" value={`${priceRanges[plant.plantType].profitRate / 100}%`} />
         <PlantInfo label="可挖TREE：" value={`${[priceRanges[plant.plantType].rewardAmounts]}`} />
         <PlantInfo label="Blast空投：" value={`${[priceRanges[plant.plantType].blast / 100]}%`} />
       </div>

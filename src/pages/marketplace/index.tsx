@@ -50,11 +50,18 @@ export default function Marketplace() {
   }, [contractService])
 
   async function adoptPlant(plantType: PlantType) {
-    console.log('%c🚀[plantType]-50:', 'color: #4d0c01', plantType)
     setAdoptLoading(true)
     try {
       if (!plantRecord)
         return
+
+      const balance = await contractService?.getUserBalance()
+      console.log('%c🚀[balance]-60:', 'color: #426820', balance)
+
+      if (Number(balance ?? 0n) < priceRanges[plantType].rewardAmounts / 100) {
+        message.warning('TREE不足，请先预约')
+        return
+      }
 
       const ids = plantRecord[plantType].map(e => Number(e.plantId))
 
@@ -65,11 +72,9 @@ export default function Marketplace() {
 
       const randomId = getRandomId(ids)
 
-      console.log('%c🚀[randomId]-55:', 'color: #be5076', randomId)
       const plant = plantRecord[plantType].find(e => Number(e.plantId) === randomId)!
 
       const res = await contractService?.adoptPlant(plant.plantId, plant.valueEth)
-      console.log('%c🚀[res]-31:', 'color: #148ae5', res)
 
       if (res?.status === 1) {
         // 成功领养后从记录中删除已领养的植物
