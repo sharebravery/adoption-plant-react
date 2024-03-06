@@ -13,7 +13,7 @@ const Navbar: React.FC<NavbarProps> = () => {
   // const location = useLocation()
 
   return (
-    <nav className="h100 w-full flex items-center justify-between text-white" id="navBar">
+    <nav className="h68 w-full flex items-center justify-between text-white" id="navBar">
       <div><img src={Logo} alt="" className="top-8 mx6 h44 w150 max-sm:w-120" /></div>
 
       {/* <ul className="flex list-none justify-around p0 font-size-16 text-[#D2D2D2] max-md:hidden">

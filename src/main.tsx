@@ -8,6 +8,7 @@ import {
   RainbowKitProvider,
   darkTheme,
 } from '@rainbow-me/rainbowkit'
+import '@/locale/i18n.ts'
 import { getLanguageLib } from './utils/getLanguageLib.ts'
 import { chains, wagmiConfig } from './utils/connectWallet.ts'
 import App from './App.tsx'

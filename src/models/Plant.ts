@@ -3,7 +3,7 @@ import { PlantType } from './PlantType'
 // 植物信息
 export class Plant {
   plantId: bigint = 0n
-  plantType: PlantType = PlantType.Ordinary// 植物种类
+  plantType: PlantType = PlantType.Seed// 植物种类
   valueEth: bigint = 0n
   // minEth: string = ''
   // maxEth: string = ''

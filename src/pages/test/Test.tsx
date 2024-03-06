@@ -1,5 +1,5 @@
 import { Button } from 'antd'
-import { priceRanges } from '../home/priceRanges'
+import { priceRanges } from '../../data/priceRanges'
 import { PlantType } from '@/models/PlantType'
 import useBrowserContract from '@/hooks/useBrowserContract'
 

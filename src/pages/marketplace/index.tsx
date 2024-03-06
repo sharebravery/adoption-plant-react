@@ -1,11 +1,12 @@
 import { Button, message } from 'antd'
 import { useEffect, useState } from 'react'
-import { priceRanges } from '../home/priceRanges'
+import { useTranslation } from 'react-i18next'
+import { ReloadOutlined } from '@ant-design/icons'
+import { priceRanges } from '../../data/priceRanges'
 import PlantCard from './components/PlantCard'
 import useBrowserContract from '@/hooks/useBrowserContract'
 import { Plant } from '@/models/Plant'
 import { plantArray2PlantMap } from '@/utils/plantArray2PlantMap'
-import type { AdoptionPriceRange } from '@/models/AdoptionPriceRange'
 import { groupBy } from '@/utils/groupBy'
 import type { PlantType } from '@/models/PlantType'
 
@@ -22,6 +23,8 @@ function getRandomId(ids: number[]): number | null {
 
 export default function Marketplace() {
   const { contractService } = useBrowserContract()
+
+  const { t } = useTranslation()
 
   const [plantRecord, setPlantRecord] = useState<Record<string, Plant[]>>()
 
@@ -59,14 +62,14 @@ export default function Marketplace() {
       console.log('%c🚀[balance]-60:', 'color: #426820', balance)
 
       if (Number(balance ?? 0n) < priceRanges[plantType].rewardAmounts / 100) {
-        message.warning('TREE不足，请先预约')
+        message.warning(t('message.market.notEnoughTreePleaseSchedule'))
         return
       }
 
       const ids = plantRecord[plantType].map(e => Number(e.plantId))
 
       if (ids.length <= 0) {
-        message.error('没有植物可以领养')
+        message.error(t('message.market.noPlantsToAdopts'))
         return
       }
 
@@ -87,7 +90,7 @@ export default function Marketplace() {
     }
     catch (error) {
       console.log('%c🚀[error]-32:', 'color: #0c10e0', error)
-      message.error('执行错误')
+      message.error(t('message.market.executionError'))
     }
     finally {
       setAdoptLoading(false)
@@ -100,6 +103,7 @@ export default function Marketplace() {
       await contractService?.scheduleAdoption(type)
     }
     catch (error) {
+      message.error(t('message.market.maybeNoHavePlat'))
       console.log('%c🚀[error]-94:', 'color: #1c1ab9', error)
     }
     finally {
@@ -109,23 +113,32 @@ export default function Marketplace() {
 
   return (
     <div>
-      <div className="flex gap-24">
+      <div className="w-full">
+        <Button className="mx-10% mb-24" type="text" onClick={fetchData}>
+          <ReloadOutlined />
+          Refresh
+        </Button>
 
-        {
+        <div className="flex flex-wrap items-center justify-center gap-24">
+
+          {
         Object.entries(priceRanges).map(([plantType, priceRange]) => (
           <div key={plantType}>
             <PlantCard plant={({ ...new Plant(), ...priceRange, profitRate: priceRange.profitRate / 100, plantType: Number(plantType) }) as any} />
 
-            <Button loading={scheduleLoading} onClick={() => scheduleAdoption(Number(plantType))}>预约</Button>
-            {
+            <div className="flex justify-center gap-x-12 primary-color py-6">
+              <Button className="primary-btn" loading={scheduleLoading} onClick={() => scheduleAdoption(Number(plantType))}>{t('market.button.schedule')}</Button>
+              {
                 plantRecord
-                && <Button disabled={plantRecord[plantType] ? plantRecord[plantType].length <= 0 : true} loading={adoptLoading} type="primary" onClick={() => adoptPlant(Number(plantType))}>领养</Button>
+                && <Button className="primary-btn" type="primary" disabled={plantRecord[plantType] ? plantRecord[plantType].length <= 0 : true} loading={adoptLoading} onClick={() => adoptPlant(Number(plantType))}>{t('market.button.adoption')}</Button>
 
             }
+            </div>
           </div>
         ))
      }
 
+        </div>
       </div>
     </div>
   )

@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react'
 import { Button, message } from 'antd'
 import { ethers } from 'ethers'
 import dayjs from 'dayjs'
-import { priceRanges } from '../home/priceRanges'
+import { useTranslation } from 'react-i18next'
+import { ReloadOutlined } from '@ant-design/icons'
+import { priceRanges } from '../../data/priceRanges'
 import MyPlantCard from './components/PlantCard'
 import useBrowserContract from '@/hooks/useBrowserContract'
 import type { Plant } from '@/models/Plant'
@@ -11,6 +13,8 @@ import { addTokenToMetaMask } from '@/utils/addTokenToMetaMask'
 
 export default function My() {
   const { contractService } = useBrowserContract()
+
+  const { t } = useTranslation()
 
   const [plantList, setPlantList] = useState<Plant[]>([])
 
@@ -53,7 +57,7 @@ export default function My() {
     setListLoading(true)
     try {
       if (dayjs().unix() < plant.adoptedTimestamp + priceRanges[plant.plantType].profitDays * 60) {
-        message.warning('未到合约期限')
+        message.warning(t('message.market.contractHasNotExpired'))
         return
       }
 
@@ -61,7 +65,7 @@ export default function My() {
     }
     catch (error) {
       console.log('%c🚀[error]-30:', 'color: #448f18', error)
-      message.error('执行错误')
+      message.error(t('message.market.executionError'))
     }
     finally {
       setListLoading(false)
@@ -69,26 +73,40 @@ export default function My() {
   }
 
   return (
-    <div className="flex gap-24">
+    <div className="flex flex-col items-center justify-center">
+      <div>
 
-      <p>
-        TREE:
-        {treeTokens}
-      </p>
-      <p className="c-blue">{import.meta.env.VITE_AUTHORIZED_ERC20_CONTRACT}</p>
-      <Button onClick={() => addTokenToMetaMask(import.meta.env.VITE_AUTHORIZED_ERC20_CONTRACT, 'TREE', 18)}>添加到钱包</Button>
+        <Button type="text" onClick={fetchData}>
+          <ReloadOutlined />
+          Refresh
+        </Button>
 
-      {plantList.map(item => (
-        <div key={item.plantId}>
-          <MyPlantCard plant={item} />
-          { dayjs.unix(dayjs().unix()).format('YYYY-MM-DD HH:mm:ss')}
-          ___
-          {
-            dayjs.unix(item.adoptedTimestamp + priceRanges[item.plantType].profitDays * 60).format('YYYY-MM-DD HH:mm:ss')
-          }
-          <Button loading={listLoading} onClick={() => onList(item)}>挂单</Button>
+        <div className="mb-12 flex items-center gap-24 px-24 text-center">
+          <p className="primary-text">
+            TREE：
+            {treeTokens}
+          </p>
+          <Button className="primary-btn" onClick={() => addTokenToMetaMask(import.meta.env.VITE_AUTHORIZED_ERC20_CONTRACT, 'TREE', 18)}>{t('my.button.add2Wallet')}</Button>
         </div>
-      ))}
+      </div>
+
+      <div className="flex flex-wrap items-center justify-center gap-24">
+
+        {plantList.map(item => (
+          <div key={item.plantId}>
+            <MyPlantCard plant={item} />
+            {/* { dayjs.unix(dayjs().unix()).format('YYYY-MM-DD HH:mm:ss')}
+            ___
+            {
+            dayjs.unix(item.adoptedTimestamp + priceRanges[item.plantType].profitDays * 60).format('YYYY-MM-DD HH:mm:ss')
+          } */}
+            <div className="flex justify-center gap-x-12 primary-color py-6">
+              <Button className="w-200 primary-btn" loading={listLoading} onClick={() => onList(item)}>{t('my.button.list')}</Button>
+
+            </div>
+          </div>
+        ))}
+      </div>
 
     </div>
   )

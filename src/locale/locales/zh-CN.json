@@ -1,3 +1,21 @@
 {
-  "hello": "你好!"
+  "tab.market.title": "市场",
+  "tab.my.title": "我的",
+  "market.button.schedule": "预约",
+  "market.button.adoption": "领养",
+  "market.plant.id": "植物ID",
+  "market.plant.value": "价值",
+  "market.plant.adoptionTime": "领养时间",
+  "market.plant.profitDays": "收益天数",
+  "market.plant.profitRate": "收益率",
+  "market.plant.diggableTREE": "可挖 TREE",
+  "market.plant.blastAirdrop": "空投 Blast",
+  "my.button.add2Wallet": "添加TREE到钱包",
+  "my.button.list": "挂单",
+
+  "message.market.notEnoughTreePleaseSchedule": "TREE不足，请先预约",
+  "message.market.noPlantsToAdopts": "没有植物可以领养",
+  "message.market.executionError": "执行错误",
+  "message.market.maybeNoHavePlat": "可能市场没有这个植物可预约",
+  "message.market.contractHasNotExpired": "未到合约期限"
 }

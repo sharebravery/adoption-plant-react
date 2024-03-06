@@ -7,4 +7,5 @@ export interface AdoptionPriceRange {
   profitRate: number // 收益率（单位：百分比）
   rewardAmounts: number // 挖矿收益
   blast: number
+  image: string
 }

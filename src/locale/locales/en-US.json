@@ -1,3 +1,22 @@
 {
-  "nav.title": "TREE"
+  "tab.market.title": "Marketplace",
+  "tab.my.title": "My",
+  "market.button.schedule": "Schedule",
+  "market.button.adoption": "Adoption",
+  "market.plant.id": "Plant ID",
+  "market.plant.value": "Value",
+  "market.plant.adoptionTime": "Adoption Time",
+  "market.plant.profitDays": "Profit Days",
+  "market.plant.profitRate": "Profit Rate",
+  "market.plant.diggableTREE": "Diggable TREE",
+  "market.plant.blastAirdrop": "Airdrop  Blast",
+  "my.button.add2Wallet": "Add TREE to wallet",
+  "my.button.list": "List",
+
+  "message.market.notEnoughTreePleaseSchedule": "Not enough TREE, please make an appointment",
+  "message.market.noPlantsToAdopts": "There are no plants to adopts",
+  "message.market.executionError": "Execution error",
+  "message.market.maybeNoHavePlat": "Maybe the market doesn't have this plant to reserve",
+  "message.market.contractHasNotExpired": "The term of the contract has not expired"
+
 }

@@ -1,9 +1,11 @@
 import React from 'react'
 import { ethers } from 'ethers'
 import dayjs from 'dayjs'
+import { useTranslation } from 'react-i18next'
+import { Button, Image } from 'antd'
 import { PlantType } from '@/models/PlantType'
 import type { Plant } from '@/models/Plant'
-import { priceRanges } from '@/pages/home/priceRanges'
+import { priceRanges } from '@/data/priceRanges'
 
 const PlantInfo: React.FC<PlantInfoProps> = ({ label, value }) => {
   return (
@@ -19,22 +21,32 @@ interface PlantCardProps {
 }
 
 const MyPlantCard: React.FC<PlantCardProps> = ({ plant }) => {
+  const { t } = useTranslation()
+
   return (
-    <div className="w-full bg-green p6 text-center">
-      <p>
-        植物编号：
-        {String(plant.plantId)}
-      </p>
+    <div className="h400 w-270 primary-color p6 text-center">
 
-      <div>{PlantType[plant.plantType]}</div>
+      <Image preview={false} width={270} height={240}src={priceRanges[plant.plantType].image} />
 
-      <div className="my-4 flex flex-col">
-        <PlantInfo label="价值：" value={`${ethers.formatEther(plant.valueEth)} ETH`} />
-        <PlantInfo label="领养时间：" value={`${dayjs.unix(plant.adoptedTimestamp).format('YYYY MM-DD HH:mm:ss')}`} />
-        <PlantInfo label="收益天数：" value={`${priceRanges[plant.plantType].profitDays}`} />
-        <PlantInfo label="收益率：" value={`${priceRanges[plant.plantType].profitRate / 100}%`} />
-        <PlantInfo label="可挖TREE：" value={`${[priceRanges[plant.plantType].rewardAmounts]}`} />
-        <PlantInfo label="Blast空投：" value={`${[priceRanges[plant.plantType].blast / 100]}%`} />
+      <div className="flex justify-center gap-x-24 text-center">
+        <h3 className="m0 p0">
+          {t('market.plant.id')}
+          ：
+
+          {String(plant.plantId)}
+        </h3>
+
+        <h3 className="m0 p0">{PlantType[plant.plantType]}</h3>
+      </div>
+
+      <div className="my-4 flex flex-col primary-text">
+        <PlantInfo label={t('market.plant.value')} value={`${ethers.formatEther(plant.valueEth)} ETH`} />
+        <PlantInfo label={t('market.plant.adoptionTime')}value={`${dayjs.unix(plant.adoptedTimestamp).format('YYYY MM-DD HH:mm:ss')}`} />
+        <PlantInfo label={t('market.plant.profitDays')} value={`${priceRanges[plant.plantType].profitDays}`} />
+        <PlantInfo label={t('market.plant.profitRate')} value={`${priceRanges[plant.plantType].profitRate / 100}%`} />
+        <PlantInfo label={t('market.plant.diggableTREE')} value={`${[priceRanges[plant.plantType].rewardAmounts]}`} />
+        <PlantInfo label={t('market.plant.blastAirdrop')} value={`${[priceRanges[plant.plantType].blast / 100]}%`} />
+
       </div>
     </div>
   )

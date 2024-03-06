@@ -8,13 +8,13 @@ interface IProps {
 const BasicLayout: React.FC<IProps> = ({ children }) => {
   return (
     <div className="min-h-screen w-full flex flex-col items-center bg-cover bg-fixed bg-center bg-no-repeat bg-origin-border">
-      <header className="fixed z-110 h100 w-100% bg-#242424 2xl:w-1400 lg:w-1000 xl:w-1200">
+      <header className="fixed z-110 h68 w-100% bg-#242424 2xl:w-1400 lg:w-1000 xl:w-1200">
         <div className="w-98%">
           <Navbar title="Follow" />
         </div>
       </header>
 
-      <div className="fixed top-100 h1 w-full bg-#070404"></div>
+      <div className="fixed top-68 h1 w-full bg-#070404"></div>
 
       <div className="h-100"></div>
 
