@@ -108,7 +108,7 @@ export class ContractService {
    */
   async getUserAdoptedPlants() {
     const contract = await this.getPlantMarketContract()
-    return contract.getUserAdoptedPlants(this.getSigner.address, true)
+    return contract.getUserAdoptedPlants(this.getSigner.address, false) // bool 是否包含已分裂的
   }
 
   /**
