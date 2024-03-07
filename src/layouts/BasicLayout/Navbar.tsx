@@ -15,7 +15,7 @@ const Navbar: React.FC<NavbarProps> = () => {
 
   useEffect(() => {
     const currentAccount = localStorage.getItem('currentAccount')
-    if (currentAccount !== address)
+    if (currentAccount !== address && isConnected)
       window.location.reload()
   }, [address, isConnected])
 
