@@ -22,7 +22,7 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant }) => {
   const { t } = useTranslation()
 
   return (
-    <div className="h400 w-300 primary-color p6 text-center">
+    <div className="h390 w-300 primary-color p6 text-center">
       {/* <p>
         植物编号：
         {String(plant.plantId)}

@@ -6,6 +6,15 @@ interface TreeProps {
   depthValue: number
 }
 
+function getRandomColor(): string {
+  const letters = '0123456789ABCDEF'
+  let color = '#'
+  for (let i = 0; i < 6; i++)
+    color += letters[Math.floor(Math.random() * 16)]
+
+  return color
+}
+
 const Tree: React.FC<TreeProps> = ({ width, height, depthValue }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -30,7 +39,8 @@ const Tree: React.FC<TreeProps> = ({ width, height, depthValue }) => {
     ctx.beginPath()
     ctx.moveTo(x, y)
     ctx.lineTo(newX, newY)
-    ctx.strokeStyle = 'green'
+    // ctx.strokeStyle = 'green'
+    ctx.strokeStyle = getRandomColor()
     ctx.lineWidth = depth / 2
     ctx.stroke()
 
@@ -60,6 +70,7 @@ const Tree: React.FC<TreeProps> = ({ width, height, depthValue }) => {
     // play light
     ctx.shadowBlur = 10
     ctx.shadowColor = 'rgba(255, 255, 255, 0.5)'
+    // ctx.shadowColor = getRandomColor()
 
     ctx.fillStyle = 'white'
     ctx.fill()

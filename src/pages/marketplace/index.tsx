@@ -34,7 +34,7 @@ export default function Marketplace() {
 
   async function fetchData() {
     const res = await contractService?.getMarketListings()
-    console.log('%c🚀[res]-32:', 'color: #295ed1', res)
+    console.log('%c🚀[res1111]-32:', 'color: #295ed1', res)
 
     if (res) {
       const data = plantArray2PlantMap(res)
