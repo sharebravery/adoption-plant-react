@@ -2,8 +2,8 @@
 export enum PlantType {
   Seed,
   Seedling,
+  VegetativeVariation,
   Vegetative,
   Flowering,
   Fruiting,
-  VegetativeVariation,
 }

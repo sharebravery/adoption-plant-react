@@ -16,7 +16,7 @@ export default defineConfig({
     ['primary-btn', 'inline-block  cursor-pointer bg-gradient-to-r from-#7CFC00 to-#228B22  text-white border-none transform transition-transform hover:scale-105 !hover:c-#FFD700 active:scale-95'],
     ['theme-color', 'bg-[#010101]'],
     ['primary-color', 'bg-gradient-to-r from-#FFD700 to-#FF5733'],
-    ['primary-text', 'bg-gradient-to-r from-green-400 to-blue-600  bg-clip-text text-transparent mix-blend-screen font-700'],
+    ['primary-text', 'c-white'],
   ],
   presets: [
     presetUno(),

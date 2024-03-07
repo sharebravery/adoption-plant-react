@@ -56,7 +56,8 @@ export default function My() {
   async function onList(plant: Plant) {
     setListLoading(true)
     try {
-      if (dayjs().unix() < plant.adoptedTimestamp + priceRanges[plant.plantType].profitDays * 60) {
+      // TODO 时间检查
+      if (dayjs().unix() < plant.adoptedTimestamp + priceRanges[plant.plantType].profitDays) {
         message.warning(t('message.market.contractHasNotExpired'))
         return
       }

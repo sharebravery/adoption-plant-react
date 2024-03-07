@@ -15,12 +15,12 @@ interface IRouterMeta {
 export type IRouter = (RouteObject & { meta?: IRouterMeta })
 
 const routes: IRouter[] = [
+  // {
+  //   path: '/',
+  //   element: <Navigate to="/home" replace={true} />,
+  // },
   {
     path: '/',
-    element: <Navigate to="/home" replace={true} />,
-  },
-  {
-    path: '/home',
     element: (
       <React.Suspense fallback={(
         <div>
@@ -48,6 +48,10 @@ const routes: IRouter[] = [
         <BasicLayout><My /></BasicLayout>
       </React.Suspense>
     ),
+  },
+  {
+    path: '*',
+    element: <Navigate to="/" replace={true} />,
   },
 ]
 
