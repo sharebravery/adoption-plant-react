@@ -12,15 +12,13 @@
   "market.plant.adoptionTime": "Adoption Time",
   "market.plant.profitDays": "Profit Days",
   "market.plant.profitRate": "Profit Rate",
-  "market.plant.diggableTREE": "Diggable TREE",
+  "market.plant.diggableTREE": "Schedule Diggable / Consume TREE",
   "market.plant.blastAirdrop": "Airdrop  Blast",
 
   "my.button.add2Wallet": "Add TREE to wallet",
   "my.button.list": "List",
   "my.tab.title.currentAdoption": "CurrentAdoption",
   "my.tab.title.historyAdoption": "HistoryAdoption",
-
-  "notice.info": "BlockTree DAPP product is an experimental decentralized mutual assistance cultivation mini-game. The total supply of TREE tokens is limited to 10 billion, obtained fairly through participation in reservations. By participating in reservations, users can obtain TREE tokens. The specific amount obtained per reservation can be viewed on the market page. Once the reservation completes the output of 10 billion tokens, TREE tokens will no longer be obtainable. Adoption rules are first-come-first-served, requiring preparation of the highest value of ETH balance in advance to adopt. Adoption requires consuming TREE tokens, with the specific consumption quantity consistent with the reservation output. The adoption is successful only when deducted.",
 
   "message.market.notEnoughTreePleaseSchedule": "Not enough TREE, please make an appointment",
   "message.market.noPlantsToAdopts": "There are no plants to adopts",

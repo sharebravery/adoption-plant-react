@@ -19,9 +19,10 @@ const PlantInfo: React.FC<PlantInfoProps> = ({ label, value }) => {
 
 interface PlantCardProps {
   plant: Plant
+  page?: string
 }
 
-const MyPlantCard: React.FC<PlantCardProps> = ({ plant }) => {
+const MyPlantCard: React.FC<PlantCardProps> = ({ plant, page }) => {
   const { t } = useTranslation()
 
   return (
@@ -30,7 +31,11 @@ const MyPlantCard: React.FC<PlantCardProps> = ({ plant }) => {
       <Tree plantType={plant.plantType} depthValue={plant.plantType + 2} width={300} height={220} />
       <h3 className="m0 p0">{PlantType[plant.plantType]}</h3>
       <div className="my-4 flex flex-col primary-text">
-        <PlantInfo label={t('market.plant.value')} value={`：${BigNumber(ethers.formatEther(plant.valueEth)).toFixed(4)} ETH`} />
+        {
+          page !== 'history'
+          && <PlantInfo label={t('market.plant.value')} value={`：${BigNumber(ethers.formatEther(plant.valueEth)).toFixed(4)} ETH`} />
+
+        }
         <PlantInfo label={t('market.plant.adoptionTime')}value={`：${dayjs.unix(plant.adoptedTimestamp).format('YYYY MM-DD HH:mm:ss')}`} />
         <PlantInfo label={t('market.plant.profitDays')} value={`：${priceRanges[plant.plantType].profitDays}`} />
         <PlantInfo label={t('market.plant.profitRate')} value={`：${priceRanges[plant.plantType].profitRate / 100}%`} />

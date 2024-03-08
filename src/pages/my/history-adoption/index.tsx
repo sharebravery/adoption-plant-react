@@ -25,12 +25,7 @@ export default function HistoryAdoption() {
 
         {plantList.map(item => (
           <div key={item.plantId}>
-            <div className="primary-color px-12">
-              ID：
-              {' '}
-              {String(item.plantId)}
-            </div>
-            <MyPlantCard plant={item} />
+            <MyPlantCard plant={item} page="history" />
           </div>
         ))}
       </div>

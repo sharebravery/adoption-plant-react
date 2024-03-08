@@ -12,15 +12,13 @@
   "market.plant.adoptionTime": "领养时间",
   "market.plant.profitDays": "收益天数",
   "market.plant.profitRate": "收益率",
-  "market.plant.diggableTREE": "可挖 TREE",
+  "market.plant.diggableTREE": "预约可挖 / 领养消耗 TREE",
   "market.plant.blastAirdrop": "空投 Blast",
 
   "my.button.add2Wallet": "添加TREE到钱包",
   "my.button.list": "挂单",
   "my.tab.title.currentAdoption": "当前领养",
   "my.tab.title.historyAdoption": "历史领养",
-
-  "notice.info": "区块树DAPP产品为实验性去中心化互助养成小游戏， TREE代币限制总量100亿枚，公平获得， 参与预约就可以获得TREE代币，具体预约一次获得数量在市场页面查看， 100亿枚产出完成预约将不会在获得TREE代币。 领养规则为先抢先得，需要提前准备价值最高的ETH余额才可以领养， 领养需要消耗TREE，具体消耗数量跟预约产出一致，领养成功才扣除。",
 
   "message.market.notEnoughTreePleaseSchedule": "TREE不足，请先预约",
   "message.market.noPlantsToAdopts": "没有植物可以领养",
