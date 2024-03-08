@@ -34,13 +34,12 @@ export default function Marketplace() {
 
   async function fetchData() {
     const res = await contractService?.getMarketListings()
-    console.log('%c🚀[res1111]-32:', 'color: #295ed1', res)
+    console.log('%c🚀[getMarketListings]-32:', 'color: #295ed1', res)
 
     if (res) {
       const data = plantArray2PlantMap(res)
 
       const grouped = groupBy(data, item => item.plantType.toString())
-      console.log('%c🚀[grouped]-36:', 'color: #5d44ce', grouped)
 
       setPlantRecord(() => grouped)
     }

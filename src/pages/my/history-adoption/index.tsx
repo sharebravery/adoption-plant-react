@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react'
 import MyPlantCard from '../components/PlantCard'
 import useBrowserContract from '@/hooks/useBrowserContract'
-import { priceRanges } from '@/data/priceRanges'
 import type { Plant } from '@/models/Plant'
-import { plantArray2PlantMap } from '@/utils/plantArray2PlantMap'
 
 export default function HistoryAdoption() {
   const { contractService } = useBrowserContract()
@@ -11,15 +9,8 @@ export default function HistoryAdoption() {
   const [plantList, setPlantList] = useState<Plant[]>([])
 
   async function fetchData() {
-    const res = await contractService?.getUserAdoptedPlants(true)
-    if (res) {
-      const data = plantArray2PlantMap(res).map(e => ({
-        ...e,
-        valueEth: BigInt(BigInt(e.valueEth) + BigInt(e.valueEth) * BigInt(priceRanges[e.plantType].profitRate) / 10000n),
-      }))
-      console.log('%c🚀[data]-20:', 'color: #a45e4b', data)
-      setPlantList(() => data)
-    }
+    const res = await contractService?.getUserAdoptionRecordPlantIds()
+    setPlantList(() => res ?? [])
 
     console.log('%c🚀[getUserAdoptedPlants]-9:', 'color: #5c6a37', res)
   }

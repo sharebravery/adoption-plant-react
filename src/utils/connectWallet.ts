@@ -35,10 +35,8 @@ const localhost = {
 
 const chainList = [polygonMumbai, arbitrum]
 
-console.log('%c🚀[import.meta.env]-40:', 'color: #ca0728', import.meta.env)
 if (import.meta.env.DEV)
   chainList.unshift(...[polygonMumbai, localhost] as any)
-console.log('%c🚀[localhost]-40:', 'color: #d2448d', localhost)
 
 const { chains, publicClient } = configureChains(
   chainList,

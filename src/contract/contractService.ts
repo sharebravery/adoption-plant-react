@@ -3,10 +3,11 @@ import { handleTransaction } from './handleTransaction'
 import PlantMarket_ABI from '@/abis/PlantMarketV1.json'
 import PlantERC20_ABI from '@/abis/AuthorizedERC20.json'
 import type { AuthorizedERC20, PlantMarketV1 as PlantMarket } from '@/abis/types'
-import { enum2Array } from '@/utils'
-import { PlantType } from '@/models/PlantType'
+import type { PlantType } from '@/models/PlantType'
 import { PlantDTO } from '@/models/PlantDTO'
 import type { AdoptionPriceRange } from '@/models/AdoptionPriceRange'
+import { plantArray2PlantMap } from '@/utils/plantArray2PlantMap'
+import { priceRanges } from '@/data/priceRanges'
 
 function createContract<T>(
   address: string,
@@ -82,33 +83,47 @@ export class ContractService {
   }
 
   /**
-   * 用户曾经领养植物种类次数
-   *
-   * @memberof ContractService
-   */
-  async getUserAdoptionRecord() {
-    const contract = await this.getPlantMarketContract()
-
-    const list = enum2Array(PlantType).reduce((pre, cur) => {
-      const temp = contract.getUserAdoptionRecord(this.getSigner.address, cur.value)
-      pre.push(temp)
-      return pre
-    }, [] as Promise<bigint>[])
-
-    const res = await Promise.all(list)
-    console.log('%c🚀[getUserAdoptionRecord]-67:', 'color: #5f7d1d', res)
-    return res
-  }
-
-  /**
-   * 查询用户当前已领养的植物
+   * 查询用户当前历史已领养的植物
    *
    * @return {*}
    * @memberof ContractService
    */
-  async getUserAdoptedPlants(includeSplit = false) {
+  async getUserAdoptionRecordPlantIds() {
     const contract = await this.getPlantMarketContract()
-    return contract.getUserAdoptedPlants(this.getSigner.address, includeSplit) // bool 是否包含已分裂的
+
+    const ids = await contract.getUserAdoptionRecordPlantIds(this.getSigner.address)
+
+    const data = ids.reduce((pre, cur) => {
+      const info = contract.getPlantInfoById(cur)
+      pre.push(info)
+      return pre
+    }, [] as any[])
+
+    const res = await Promise.all(data)
+
+    return plantArray2PlantMap(res).map(e => ({
+      ...e,
+      valueEth: BigInt(BigInt(e.valueEth) + BigInt(e.valueEth) * BigInt(priceRanges[e.plantType].profitRate) / 10000n),
+    }))
+  }
+
+  /**
+   *查询用户当前已领养的植物
+   *
+   * @return {*}
+   * @memberof ContractService
+   */
+  async getUserAdoptedCurrentPlants() {
+    const contract = await this.getPlantMarketContract()
+
+    const data = await contract.getUserAdoptedCurrentPlants(this.getSigner.address, false)
+
+    const res = await Promise.all(data)
+
+    return plantArray2PlantMap(res).map(e => ({
+      ...e,
+      valueEth: BigInt(BigInt(e.valueEth) + BigInt(e.valueEth) * BigInt(priceRanges[e.plantType].profitRate) / 10000n),
+    }))
   }
 
   /**

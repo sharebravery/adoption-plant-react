@@ -8,7 +8,6 @@ import { priceRanges } from '../../../data/priceRanges'
 import MyPlantCard from '../components/PlantCard'
 import useBrowserContract from '@/hooks/useBrowserContract'
 import type { Plant } from '@/models/Plant'
-import { plantArray2PlantMap } from '@/utils/plantArray2PlantMap'
 import { addTokenToMetaMask } from '@/utils/addTokenToMetaMask'
 
 export default function CurrentAdoption() {
@@ -35,16 +34,8 @@ export default function CurrentAdoption() {
   }, [contractService])
 
   async function fetchData() {
-    const res = await contractService?.getUserAdoptedPlants()
-    if (res) {
-      const data = plantArray2PlantMap(res).map(e => ({
-        ...e,
-        valueEth: BigInt(BigInt(e.valueEth) + BigInt(e.valueEth) * BigInt(priceRanges[e.plantType].profitRate) / 10000n),
-      }))
-      console.log('%c🚀[data]-20:', 'color: #a45e4b', data)
-      setPlantList(() => data)
-    }
-
+    const res = await contractService?.getUserAdoptedCurrentPlants()
+    setPlantList(() => res ?? [])
     console.log('%c🚀[getUserAdoptedPlants]-9:', 'color: #5c6a37', res)
   }
 
