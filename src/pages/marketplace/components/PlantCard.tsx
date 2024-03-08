@@ -28,7 +28,7 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant }) => {
         {String(plant.plantId)}
       </p> */}
 
-      <Tree depthValue={plant.plantType + 2} width={300} height={220} />
+      <Tree plantType={plant.plantType} depthValue={plant.plantType + 2} width={300} height={220} />
       <h3 className="m0 p0">{PlantType[plant.plantType]}</h3>
 
       <div className="my-4 flex flex-col primary-text">

@@ -4,8 +4,10 @@ import React, { lazy } from 'react'
 import { Spin } from 'antd'
 import BasicLayout from '../layouts/BasicLayout'
 
-const Home = lazy(() => import('../pages/home'))
+const Marketplace = lazy(() => import('../pages/marketplace'))
 const My = lazy(() => import('../pages/my'))
+const Notice = lazy(() => import('../pages/notice'))
+const Test = lazy(() => import('../pages/test/Test'))
 
 interface IRouterMeta {
   title?: string
@@ -30,7 +32,7 @@ const routes: IRouter[] = [
         </div>
       )}
       >
-        <BasicLayout><Home /></BasicLayout>
+        <BasicLayout><Marketplace /></BasicLayout>
       </React.Suspense>
     ),
   },
@@ -50,9 +52,44 @@ const routes: IRouter[] = [
     ),
   },
   {
+    path: '/notice',
+    element: (
+      <React.Suspense fallback={(
+        <div>
+          {' '}
+          <Spin size="large" />
+          Loading...
+        </div>
+      )}
+      >
+        <BasicLayout><Notice /></BasicLayout>
+      </React.Suspense>
+    ),
+  },
+  {
     path: '*',
     element: <Navigate to="/" replace={true} />,
   },
 ]
+
+if (true) {
+  routes.push(
+    {
+      path: '/test',
+      element: (
+        <React.Suspense fallback={(
+          <div>
+            {' '}
+            <Spin size="large" />
+            Loading...
+          </div>
+        )}
+        >
+          <BasicLayout><Test /></BasicLayout>
+        </React.Suspense>
+      ),
+    },
+  )
+}
 
 export default routes

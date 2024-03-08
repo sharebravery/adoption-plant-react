@@ -27,7 +27,7 @@ const MyPlantCard: React.FC<PlantCardProps> = ({ plant }) => {
   return (
     <div className="h390 w-300 primary-color p6 text-center">
 
-      <Tree depthValue={plant.plantType + 2} width={300} height={220} />
+      <Tree plantType={plant.plantType} depthValue={plant.plantType + 2} width={300} height={220} />
       <h3 className="m0 p0">{PlantType[plant.plantType]}</h3>
       <div className="my-4 flex flex-col primary-text">
         <PlantInfo label={t('market.plant.value')} value={`：${BigNumber(ethers.formatEther(plant.valueEth)).toFixed(4)} ETH`} />

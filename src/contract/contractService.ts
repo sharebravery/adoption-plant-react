@@ -96,7 +96,7 @@ export class ContractService {
     }, [] as Promise<bigint>[])
 
     const res = await Promise.all(list)
-    console.log('%c🚀[res]-67:', 'color: #5f7d1d', res)
+    console.log('%c🚀[getUserAdoptionRecord]-67:', 'color: #5f7d1d', res)
     return res
   }
 
@@ -106,9 +106,9 @@ export class ContractService {
    * @return {*}
    * @memberof ContractService
    */
-  async getUserAdoptedPlants() {
+  async getUserAdoptedPlants(includeSplit = false) {
     const contract = await this.getPlantMarketContract()
-    return contract.getUserAdoptedPlants(this.getSigner.address, false) // bool 是否包含已分裂的
+    return contract.getUserAdoptedPlants(this.getSigner.address, includeSplit) // bool 是否包含已分裂的
   }
 
   /**

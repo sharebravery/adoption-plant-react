@@ -116,7 +116,7 @@ export default function Marketplace() {
       <div className="w-full">
         <Button className="mx-10% mb-24" type="text" onClick={fetchData}>
           <ReloadOutlined />
-          Refresh
+          {t('refresh')}
         </Button>
 
         <div className="flex flex-wrap items-center justify-center gap-24">
@@ -127,10 +127,10 @@ export default function Marketplace() {
             <PlantCard plant={({ ...new Plant(), ...priceRange, profitRate: priceRange.profitRate / 100, plantType: Number(plantType) }) as any} />
 
             <div className="flex justify-center gap-x-12 primary-color py-6">
-              <Button className="primary-btn" loading={scheduleLoading} onClick={() => scheduleAdoption(Number(plantType))}>{t('market.button.schedule')}</Button>
+              <Button className="w-120 primary-btn" loading={scheduleLoading} onClick={() => scheduleAdoption(Number(plantType))}>{t('market.button.schedule')}</Button>
               {
                 plantRecord
-                && <Button className="primary-btn" type="primary" disabled={plantRecord[plantType] ? plantRecord[plantType].length <= 0 : true} loading={adoptLoading} onClick={() => adoptPlant(Number(plantType))}>{t('market.button.adoption')}</Button>
+                && <Button className="w-120 primary-btn" type="primary" disabled={plantRecord[plantType] ? plantRecord[plantType].length <= 0 : true} loading={adoptLoading} onClick={() => adoptPlant(Number(plantType))}>{t('market.button.adoption')}</Button>
 
             }
             </div>

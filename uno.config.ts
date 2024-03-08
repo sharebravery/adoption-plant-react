@@ -15,7 +15,7 @@ export default defineConfig({
     ['icon-btn', 'inline-block cursor-pointer select-none opacity-75 transition duration-200 ease-in-out hover:opacity-100 hover:text-teal-600'],
     ['primary-btn', 'inline-block  cursor-pointer bg-gradient-to-r from-#7CFC00 to-#228B22  text-white border-none transform transition-transform hover:scale-105 !hover:c-#FFD700 active:scale-95'],
     ['theme-color', 'bg-[#010101]'],
-    ['primary-color', 'bg-gradient-to-r from-#FFD700 to-#FF5733'],
+    ['primary-color', 'bg-gradient-to-r from-blue-800 to-purple-800'],
     ['primary-text', 'c-white'],
   ],
   presets: [

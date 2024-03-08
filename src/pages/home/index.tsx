@@ -3,14 +3,10 @@ import { Tabs } from 'antd'
 import { useTranslation } from 'react-i18next'
 import Marketplace from '../marketplace'
 import My from '../my'
-import Test from '../test/Test'
+import Notice from '../notice'
 
 export default function Home() {
   const { t } = useTranslation()
-
-  const onChange = (key: string) => {
-    console.log(key)
-  }
 
   const items: TabsProps['items'] = [
     {
@@ -24,15 +20,15 @@ export default function Home() {
       children: <My />,
     },
     {
-      key: 'Test',
-      label: 'Test',
-      children: <Test />,
+      key: 'Notice',
+      label: t('tab.notice.title'),
+      children: <Notice />,
     },
   ]
 
   return (
     <div>
-      <Tabs centered defaultActiveKey="Marketplace" items={items} onChange={onChange} />
+      <Tabs centered defaultActiveKey="Marketplace" items={items} />
     </div>
 
   )

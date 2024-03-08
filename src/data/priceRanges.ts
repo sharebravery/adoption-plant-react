@@ -58,7 +58,7 @@ export const priceRanges: Record<PlantType, AdoptionPriceRange> = {
     startTime: 7,
     endTime: 23,
     profitDays: 1,
-    profitRate: 5,
+    profitRate: 500,
     rewardAmounts: 5000,
     blast: 1130,
   },
