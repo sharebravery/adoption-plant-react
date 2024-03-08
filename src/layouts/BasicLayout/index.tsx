@@ -26,7 +26,7 @@ const BasicLayout: React.FC<IProps> = ({ children }) => {
       <div className="h16 w-full" />
 
       <main className="h-full w-375 items-center lg:w-800 md:w-400 sm:w-375 xl:w-1200">
-        <Menu mode="horizontal" className="flex justify-center bg-#242424">
+        <Menu mode="horizontal" className="flex justify-center bg-#242424 text-18 font-bold">
           <Menu.Item key="Marketplace">
             <Link to="/">
               {t('tab.market.title')}
