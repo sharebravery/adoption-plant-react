@@ -50,14 +50,11 @@ export default function CurrentAdoption() {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div>
 
-        <Button type="text" onClick={fetchData}>
-          <ReloadOutlined />
-          {t('refresh')}
-        </Button>
-
-      </div>
+      <Button type="text" onClick={fetchData}>
+        <ReloadOutlined />
+        {t('refresh')}
+      </Button>
 
       <div className="flex flex-wrap items-center justify-center gap-24">
 

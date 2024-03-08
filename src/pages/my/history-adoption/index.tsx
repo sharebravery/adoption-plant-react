@@ -1,10 +1,15 @@
 import { useEffect, useState } from 'react'
+import { Button } from 'antd'
+import { ReloadOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
 import MyPlantCard from '../components/PlantCard'
 import useBrowserContract from '@/hooks/useBrowserContract'
 import type { Plant } from '@/models/Plant'
 
 export default function HistoryAdoption() {
   const { contractService } = useBrowserContract()
+
+  const { t } = useTranslation()
 
   const [plantList, setPlantList] = useState<Plant[]>([])
 
@@ -22,10 +27,15 @@ export default function HistoryAdoption() {
 
   return (
     <div>
+
       <div className="flex flex-wrap items-center justify-center gap-24">
+        <Button type="text" onClick={fetchData}>
+          <ReloadOutlined />
+          {t('refresh')}
+        </Button>
 
         {plantList.map(item => (
-          <div key={item.plantId}>
+          <div key={item.adoptedTimestamp}>
             <MyPlantCard plant={item} page="history" />
           </div>
         ))}
