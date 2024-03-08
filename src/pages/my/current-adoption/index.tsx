@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Button, message } from 'antd'
-import { ethers } from 'ethers'
 import dayjs from 'dayjs'
 import { useTranslation } from 'react-i18next'
 import { ReloadOutlined } from '@ant-design/icons'
@@ -8,7 +7,6 @@ import { priceRanges } from '../../../data/priceRanges'
 import MyPlantCard from '../components/PlantCard'
 import useBrowserContract from '@/hooks/useBrowserContract'
 import type { Plant } from '@/models/Plant'
-import { addTokenToMetaMask } from '@/utils/addTokenToMetaMask'
 
 export default function CurrentAdoption() {
   const { contractService } = useBrowserContract()
@@ -18,20 +16,6 @@ export default function CurrentAdoption() {
   const [plantList, setPlantList] = useState<Plant[]>([])
 
   const [listLoading, setListLoading] = useState(false)
-
-  const [treeTokens, setTreeTokens] = useState('0')
-
-  useEffect(() => {
-    async function fetchData() {
-      if (!contractService)
-        return
-      const balance = await contractService.getUserBalance()
-      setTreeTokens(ethers.formatEther(balance))
-      console.log('%c🚀[balance]-20:', 'color: #675d94', balance)
-    }
-
-    fetchData()
-  }, [contractService])
 
   async function fetchData() {
     const res = await contractService?.getUserAdoptedCurrentPlants()
@@ -73,13 +57,6 @@ export default function CurrentAdoption() {
           {t('refresh')}
         </Button>
 
-        <div className="mb-12 flex items-center gap-24 px-24 text-center">
-          <p className="primary-text">
-            TREE：
-            {treeTokens}
-          </p>
-          <Button className="primary-btn" onClick={() => addTokenToMetaMask(import.meta.env.VITE_AUTHORIZED_ERC20_CONTRACT, 'TREE', 18)}>{t('my.button.add2Wallet')}</Button>
-        </div>
       </div>
 
       <div className="flex flex-wrap items-center justify-center gap-24">

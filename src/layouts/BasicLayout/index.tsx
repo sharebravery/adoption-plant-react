@@ -1,7 +1,7 @@
 import React from 'react'
 import { Menu } from 'antd'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import Navbar from './Navbar'
 
 interface IProps {
@@ -10,6 +10,7 @@ interface IProps {
 
 const BasicLayout: React.FC<IProps> = ({ children }) => {
   const { t } = useTranslation()
+  const location = useLocation()
 
   return (
     <div className="min-h-screen w-full flex flex-col items-center bg-cover bg-fixed bg-center bg-no-repeat bg-origin-border">
@@ -26,18 +27,18 @@ const BasicLayout: React.FC<IProps> = ({ children }) => {
       <div className="h16 w-full" />
 
       <main className="h-full w-375 items-center lg:w-800 md:w-400 sm:w-375 xl:w-1200">
-        <Menu mode="horizontal" className="flex justify-center bg-#242424 text-18 font-bold">
-          <Menu.Item key="Marketplace">
+        <Menu selectedKeys={[location.pathname]} mode="horizontal" className="flex justify-center bg-#242424 text-18 font-bold">
+          <Menu.Item key="/">
             <Link to="/">
               {t('tab.market.title')}
             </Link>
           </Menu.Item>
-          <Menu.Item key="My">
+          <Menu.Item key="/my">
             <Link to="/my">
               {t('tab.my.title')}
             </Link>
           </Menu.Item>
-          <Menu.Item key="Notice">
+          <Menu.Item key="/notice">
             <Link to="/notice">
               {t('tab.notice.title')}
             </Link>

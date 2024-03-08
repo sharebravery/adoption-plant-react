@@ -10,5 +10,6 @@ export default antfu({
     'ts/ban-ts-comment': 0,
     'ts/prefer-ts-expect-error': 0,
     'eslint-comments/no-unlimited-disable': 0,
+    'react-hooks/exhaustive-deps': 0,
   },
 })

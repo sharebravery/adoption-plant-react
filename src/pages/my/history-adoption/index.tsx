@@ -19,6 +19,7 @@ export default function HistoryAdoption() {
   ) => {
     contractService && fetchData()
   }, [contractService])
+
   return (
     <div>
       <div className="flex flex-wrap items-center justify-center gap-24">

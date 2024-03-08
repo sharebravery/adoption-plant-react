@@ -1,7 +1,5 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit'
-import { Image } from 'antd'
 import UserDropdown from './UserDropdown'
-import MobileDropdown from './MobileDropdown'
 
 // import walletImage from '@/assets/wallet.png'
 // import menuImage from '@/assets/menu.png'
