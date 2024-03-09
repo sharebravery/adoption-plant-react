@@ -89,7 +89,7 @@ export default function Marketplace() {
     }
     catch (error) {
       console.log('%c🚀[error]-32:', 'color: #0c10e0', error)
-      message.error(t('message.market.executionError'))
+      message.error(t('message.market.maybeEnoughOrTimeNotUp'))
     }
     finally {
       setAdoptLoading(false)

@@ -24,6 +24,7 @@
   "message.market.noPlantsToAdopts": "There are no plants to adopts",
   "message.market.executionError": "Execution error",
   "message.market.maybeNoHavePlat": "Maybe the market doesn't have this plant to reserve",
-  "message.market.contractHasNotExpired": "The term of the contract has not expired"
+  "message.market.contractHasNotExpired": "The term of the contract has not expired",
+  "message.market.maybeEnoughOrTimeNotUp": "There may not be enough trees or adoption time is not up"
 
 }

@@ -25,5 +25,5 @@
   "message.market.executionError": "执行错误",
   "message.market.maybeNoHavePlat": "可能市场没有这个植物可预约",
   "message.market.contractHasNotExpired": "未到合约期限",
-  "message.market.maybe": "可能TREE不足或者"
+  "message.market.maybeEnoughOrTimeNotUp": "可能TREE不足或者领养时间未到"
 }
