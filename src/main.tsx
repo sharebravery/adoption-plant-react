@@ -1,16 +1,21 @@
 import 'uno.css'
+import '@rainbow-me/rainbowkit/styles.css'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { ConfigProvider, theme } from 'antd'
 import type { Locale } from '@rainbow-me/rainbowkit'
-import { WagmiConfig } from 'wagmi'
+import { WagmiProvider } from 'wagmi'
 import {
   RainbowKitProvider,
   darkTheme,
 } from '@rainbow-me/rainbowkit'
+import {
+  QueryClientProvider,
+} from '@tanstack/react-query'
 import '@/locale/i18n.ts'
 import { getLanguageLib } from './utils/getLanguageLib.ts'
-import { chains, wagmiConfig } from './utils/connectWallet.ts'
+
+import { queryClient, walletCConfig } from './utils/connectWalletCustomChains.ts'
 import App from './App.tsx'
 import './index.css'
 
@@ -26,11 +31,13 @@ root.render(
     }}
   >
     <BrowserRouter>
-      <WagmiConfig config={wagmiConfig}>
-        <RainbowKitProvider chains={chains} theme={darkTheme()} locale={browserLanguageLib.browserLanguage as Locale}>
-          <App />
-        </RainbowKitProvider>
-      </WagmiConfig>
+      <WagmiProvider config={walletCConfig}>
+        <QueryClientProvider client={queryClient}>
+          <RainbowKitProvider theme={darkTheme()} locale={browserLanguageLib.browserLanguage as Locale}>
+            <App />
+          </RainbowKitProvider>
+        </QueryClientProvider>
+      </WagmiProvider>
     </BrowserRouter>
   </ConfigProvider>,
 )
