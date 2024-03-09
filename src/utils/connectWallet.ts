@@ -33,7 +33,29 @@ const localhost = {
   },
 }
 
-const chainList = [polygonMumbai, arbitrum]
+const blast = {
+  ...polygonMumbai,
+  id: 168587773,
+  name: 'Blast Sepolia',
+  network: 'BlastSepolia',
+  rpcUrls: {
+    ...polygonMumbai.rpcUrls,
+    ...{
+      localhost: {
+        http: [import.meta.env.VITE_JSON_RPC],
+        // webSocket: [`wss://polygon-mumbai.g.alchemy.com/v2/${import.meta.env.VITE_ALCHEMY_ID}`],
+      },
+      default: {
+        http: [import.meta.env.VITE_JSON_RPC],
+      },
+      public: {
+        http: [import.meta.env.VITE_JSON_RPC],
+      },
+    },
+  },
+}
+
+const chainList = [blast, polygonMumbai]
 
 if (import.meta.env.DEV)
   chainList.unshift(...[polygonMumbai, localhost] as any)

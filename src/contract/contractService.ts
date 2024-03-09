@@ -232,4 +232,22 @@ export class ContractService {
     console.log('%c🚀[res]-203:', 'color: #2c8f08', res)
     return handleTransaction(res)
   }
+
+  /**
+   * 提取合约GAS
+   *
+   * @return {*}
+   * @memberof ContractService
+   */
+  async claimMyContractsGas() {
+    const contract = await this.getPlantMarketContract()
+
+    return contract.claimMyContractsGas()
+  }
+
+  async withdraw() {
+    const contract = await this.getPlantMarketContract()
+
+    return contract.withdraw()
+  }
 }
