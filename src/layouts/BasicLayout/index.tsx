@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Menu } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { Link, useLocation } from 'react-router-dom'
+import { useAccount } from 'wagmi'
 import Navbar from './Navbar'
 
 interface IProps {
@@ -12,8 +13,18 @@ const BasicLayout: React.FC<IProps> = ({ children }) => {
   const { t } = useTranslation()
   const location = useLocation()
 
+  const { address } = useAccount()
+
+  const [accountSwitchCount, setAccountSwitchCount] = useState(1)
+
+  useEffect(() => {
+    setAccountSwitchCount(pre => pre + 1)
+
+    console.log('%c🚀[address]-22:', 'color: #1fa259', address, accountSwitchCount)
+  }, [address])
+
   return (
-    <div className="min-h-screen w-full flex flex-col items-center bg-cover bg-fixed bg-center bg-no-repeat bg-origin-border">
+    <div key={accountSwitchCount} className="min-h-screen w-full flex flex-col items-center bg-cover bg-fixed bg-center bg-no-repeat bg-origin-border">
       <header className="fixed z-110 h68 w-100% bg-#242424 2xl:w-1400 lg:w-1000 xl:w-1200">
         <div className="w-98%">
           <Navbar title="Follow" />
