@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Menu } from 'antd'
+import { Analytics } from '@vercel/analytics/react'
 import { useTranslation } from 'react-i18next'
 import { Link, useLocation } from 'react-router-dom'
 import { useAccount } from 'wagmi'
@@ -58,6 +59,7 @@ const BasicLayout: React.FC<IProps> = ({ children }) => {
 
         <div className="h20" />
         {children}
+        <Analytics />
       </main>
 
       <div className="h-60 w-full" />
