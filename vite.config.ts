@@ -12,6 +12,8 @@ export default ({ mode }: ConfigEnv): UserConfig => {
 
   const { VITE_BASE_URL } = loadEnv(mode, root)
 
+  console.log('%c🚀[VITE_BASE_URL]-30:', 'color: #0d95c8', VITE_BASE_URL)
+
   return defineConfig({
     base: '/',
     resolve: {
@@ -28,6 +30,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         '/api/': {
           target: VITE_BASE_URL,
           changeOrigin: true,
+          rewrite: path => path.replace(/^\/api/, ''),
         },
       },
     },
