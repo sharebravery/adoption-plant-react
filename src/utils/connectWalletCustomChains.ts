@@ -51,7 +51,7 @@ const blastSepolia = {
 const walletCConfig = getDefaultConfig({
   appName: import.meta.env.VITE_DAPP_TITLE,
   projectId: import.meta.env.VITE_PROJECT_ID_FOR_WALLETS,
-  chains: [blastSepolia, blast],
+  chains: [blast],
 })
 
 const queryClient = new QueryClient()

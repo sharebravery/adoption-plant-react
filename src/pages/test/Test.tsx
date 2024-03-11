@@ -36,6 +36,17 @@ export default function Test() {
     }
   }
 
+  async function setOnceA() {
+    try {
+      await contractService?.setOnceA()
+
+    } catch (error) {
+      console.log('%c🚀[error]-43:', 'color: #0c6645', error);
+
+    }
+
+  }
+
   return (
     <div>
       <div className="flex gap-24">

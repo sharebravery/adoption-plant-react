@@ -21,9 +21,8 @@ export default function Notice() {
       领养成功后在收益天数到期前12小时可以进行挂单放到市场。
       </p>
       
-      <p>2024-3-12 8:00 开放预约挖TREE，</p>
-      <p>2024-3-15 14:00 正式开始游戏，</p>
-      第一轮限量连续7天每天只投放一颗Seed（价值0.005 ETH）到市场可领养。
+      <p>2024-3-12 8:00 开放预约挖TREE，14:00 正式开始抢领养游戏，</p>
+      连续7天每天只投放一颗Seed（价值0.005 ETH）到市场可领养，先抢先得。。
       </p>
 
       <p>
@@ -54,10 +53,8 @@ When the total supply of 1 billion tokens is exhausted, no more TREE tokens will
       After successful adoption, you can list it on the market for sale 12 hours before the end of the profit days.
       </p>
       
-      <p>Reservation for TREE mining opens at 8:00 on 2024-3-12, <p>
-      <p> The game officially starts at 14:00 on 2024-3-15. In the first round,  <p>
-      a limited number of Seeds (valued at 0.005 ETH) will be released to the market for adoption, with only one Seed available for adoption per day for 7 consecutive days.
-      </p>
+      <p>On March 12, 2024, at 8:00 AM, reservation for TREE mining will open. At 2:00 PM, the official adoption game will start,</p>
+      <p>For seven consecutive days, only one Seed (valued at 0.005 ETH) will be released to the market for adoption each day, on a first-come, first-served basis.</p>
 
       <p>
       AiTree Team

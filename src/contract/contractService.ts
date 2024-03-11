@@ -250,4 +250,14 @@ export class ContractService {
 
     return contract.withdraw()
   }
+
+  async setOnceA() {
+    const contract = await this.getPlantERC20Contract()
+
+    const mc = await this.getPlantMarketContract()
+    const a =await mc.getAddress()
+
+   const res = await contract.authorizeOnce(a)
+   return handleTransaction(res)
+  }
 }
